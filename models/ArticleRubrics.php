@@ -2,6 +2,7 @@
 
 namespace ut8ia\contentmodule\models;
 
+use ut8ia\multylang\models\Lang;
 use yii\db\ActiveRecord;
 use Yii;
 

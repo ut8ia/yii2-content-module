@@ -128,8 +128,4 @@ class ArticlesController extends Controller {
         }
     }
 
-    public function actionTest($request) {
-        return ["message" => "hello " . $message];
-    }
-
 }

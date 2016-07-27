@@ -5,6 +5,7 @@ namespace ut8ia\contentmodule\models;
 use Yii;
 use yii\db\ActiveRecord;
 use pendalf89\filemanager\behaviors\MediafileBehavior;
+use ut8ia\multylang\models\Lang;
 
 /**
  * This is the model class for table "articles".
