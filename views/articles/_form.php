@@ -2,13 +2,12 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-//use dosamigos\tinymce\TinyMce;
 use dosamigos\datetimepicker\DateTimePicker;
 use pendalf89\filemanager\widgets\TinyMCE;
 use kartik\select2\Select2;
-use common\models\Lang;
-use common\models\ArticleRubrics;
-use common\models\Tags;
+use  ut8ia\multylang\models\Lang;
+use  ut8ia\contentmodule\models\ArticleRubrics;
+use  ut8ia\contentmodule\models\Tags;
 
 
 $model->SystemTags = $model->getLinkedTagsByType($model->id, 1, 0, null);
@@ -20,13 +19,13 @@ $tags = new Tags();
 
     <?php
     $form = ActiveForm::begin([
-                'enableClientValidation' => false,
-                'options' => ['class' => 'form-horizontal', 'style' => 'padding-left:0px;'],
-                'fieldConfig' => [
-                    'template' => '<div class="col-lg-2 small">{label}</div><div class="col-lg-10">{input}{error}</div>',
-                    'labelOptions' => ['style' => 'font-weight: lighter;'],
-                    'inputOptions' => ['class' => 'form-control'],
-                ],
+        'enableClientValidation' => false,
+        'options' => ['class' => 'form-horizontal', 'style' => 'padding-left:0px;'],
+        'fieldConfig' => [
+            'template' => '<div class="col-lg-2 small">{label}</div><div class="col-lg-10">{input}{error}</div>',
+            'labelOptions' => ['style' => 'font-weight: lighter;'],
+            'inputOptions' => ['class' => 'form-control'],
+        ],
     ]);
     ?>
 
@@ -70,30 +69,13 @@ $tags = new Tags();
         ],
     ]);
 
-
-    //    echo $form->field($model, 'text')->widget(TinyMce::class, [
-//        'options' => ['rows' => 13],
-//        'language' => 'ru',
-//        'clientOptions' => [
-//            'plugins' => [
-//                "advlist autolink lists link charmap print preview anchor",
-//                "searchreplace visualblocks code fullscreen",
-//                "insertdatetime media table contextmenu paste wordcount image"
-//            ],
-//            'toolbar' => "undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | preview ",
-//            'file_browser_callback'=> new yii\web\JsExpression("function(field_name, url, type, win) {
-//            if(type=='image') $('#my_form input').click();
-//        }"),
-//              'images_upload_url'=> 'postAcceptor.php',
-//        ]
-//    ]);
-
-    ?>    
+    ?>
 
     <iframe id="form_target" name="form_target" style="display:none">
-    <form id="my_form" action="/upload/" target="form_target" method="post" enctype="multipart/form-data"          style="width:0px;height:0;overflow:hidden">
-        <input name="image" type="file" onchange="$('#my_form').submit();this.value='';">
-    </form>
+        <form id="my_form" action="/upload/" target="form_target" method="post" enctype="multipart/form-data"
+              style="width:0px;height:0;overflow:hidden">
+            <input name="image" type="file" onchange="$('#my_form').submit();this.value='';">
+        </form>
     </iframe>
 
 
@@ -104,7 +86,7 @@ $tags = new Tags();
         'options' => [
             'multiple' => true,
             'placeholder' => 'Tags for navigation and seo'
-            ],
+        ],
         'pluginOptions' => [
             'allowClear' => true
         ],
@@ -122,7 +104,6 @@ $tags = new Tags();
     ]);
     ?>
 
-    
 
     <div class="form-group row">
         <div class="col-lg-2 small"><?php echo Yii::t('main', 'Date'); ?></div>
@@ -150,10 +131,10 @@ $tags = new Tags();
                 echo $model->author->username;
             }
             ?>
-        </div>   
+        </div>
         <div class="col-lg-5">
             <?= $form->field($model, 'stick')->checkbox(); ?>
-        </div>  
+        </div>
 
     </div>
     <div class="form-group">

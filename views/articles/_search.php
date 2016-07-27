@@ -1,9 +1,9 @@
 <?php
 
-use common\models\ArticleRubrics;
+use ut8ia\contentmodule\models\ArticleRubrics;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-use common\models\Lang;
+use  ut8ia\multylang\models\Lang;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\ArticlesSearch */

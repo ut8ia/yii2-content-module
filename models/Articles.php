@@ -6,6 +6,7 @@ use Yii;
 use yii\db\ActiveRecord;
 use pendalf89\filemanager\behaviors\MediafileBehavior;
 use ut8ia\multylang\models\Lang;
+use common\models\User;
 
 /**
  * This is the model class for table "articles".

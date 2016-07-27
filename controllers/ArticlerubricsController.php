@@ -4,7 +4,7 @@ namespace ut8ia\contentmodule\controllers;
 
 use Yii;
 use ut8ia\contentmodule\models\ArticleRubrics;
-use ut8ia\contentmodule\models\ArticleSearch;
+use ut8ia\contentmodule\models\ArticleRuricsSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -48,7 +48,7 @@ class ArticlerubricsController extends Controller {
      */
     public function actionIndex()
     {
-        $searchModel = new ArticleSearch();
+        $searchModel = new ArticleRubricsSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
