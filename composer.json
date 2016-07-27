@@ -1,0 +1,21 @@
+{
+  "name": "ut8ia/yii2-content-module",
+  "description": "module for manage content in project",
+  "type": "library",
+  "license": "GPL-3.0",
+  "authors": [
+    {
+      "name": "Eugene Anufriev",
+      "email": "eugene.anufriev@gmail.com",
+      "role": "Developer"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "ut8ia\\contentmodule\\": "/"
+    }
+  },
+  "require": {
+    "php": ">5.3.4"
+  }
+}
