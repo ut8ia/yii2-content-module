@@ -5,15 +5,15 @@ use yii\grid\GridView;
 use yii\helpers\ArrayHelper;
 
 /* @var $this yii\web\View */
-/* @var $searchModel common\models\ArticlesSearch */
+/* @var $searchModel ut8ia\contentmodule\models\ContentSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('app', 'Articles');
+$this->title = Yii::t('app', 'Content');
 ?>
-<div class="articles-index">
+<div class="content-index">
     <?php echo $this->render('_search', ['model' => $searchModel]); ?>
     <p>
-        <?= Html::a(Yii::t('app', 'Create Articles'), ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(Yii::t('app', 'Create Content'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?=

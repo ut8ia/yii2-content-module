@@ -4,11 +4,11 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model common\models\ArticleRubrics */
+/* @var $model ut8ia\contentmodule\models\ContentRubrics */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="article-rubrics-form">
+<div class="content-rubrics-form">
 
     <?php
     $form = ActiveForm::begin([

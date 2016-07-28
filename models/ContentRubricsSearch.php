@@ -5,12 +5,12 @@ namespace ut8ia\contentmodule\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use ut8ia\contentmodule\models\Articles;
+use ut8ia\contentmodule\models\ContentRubrics;
 
 /**
- * ArticlesSearch represents the model behind the search form about `common\models\Articles`.
+ * ContentSearch represents the model behind the search form about `ContentRubrics`.
  */
-class ArticlesSearch extends Articles
+class ContentRubricsSearch extends ContentRubrics
 {
     /**
      * @inheritdoc
@@ -19,7 +19,7 @@ class ArticlesSearch extends Articles
     {
         return [
             [['id'], 'integer'],
-            [['name', 'text', 'date','lang_id','rubric_id'], 'safe'],
+            [['name_en', 'name_ru'], 'safe'],
         ];
     }
 
@@ -41,7 +41,7 @@ class ArticlesSearch extends Articles
      */
     public function search($params)
     {
-        $query = Articles::find()->orderBy(['id'=>SORT_DESC]);
+        $query = ContentRubrics::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -57,13 +57,10 @@ class ArticlesSearch extends Articles
 
         $query->andFilterWhere([
             'id' => $this->id,
-            'date' => $this->date,
-            'lang_id' => $this->lang_id,
-            'rubric_id' => $this->rubric_id,
         ]);
 
-        $query->andFilterWhere(['like', 'name', $this->name])
-            ->andFilterWhere(['like', 'text', $this->text]);
+        $query->andFilterWhere(['like', 'name_en', $this->name_en])
+            ->andFilterWhere(['like', 'name_ru', $this->name_ru]);
 
         return $dataProvider;
     }

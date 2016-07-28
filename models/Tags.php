@@ -6,7 +6,7 @@ use Yii;
 use yii\db\ActiveRecord;
 
 /**
- * This is the model class for table "tags".
+ * This is the model class for table "ut8ia\contentmodule\models\tags".
  *
  * @property integer $id
  * @property string $name

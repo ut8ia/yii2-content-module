@@ -5,7 +5,7 @@ namespace ut8ia\contentmodule\models;
 use Yii;
 
 /**
- * This is the model class for table "tags_link".
+ * This is the model class for table "ut8ia\contentmodule\models\tags_link".
  *
  * @property integer $id
  * @property integer $tag_id

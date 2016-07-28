@@ -3,17 +3,17 @@
 namespace ut8ia\contentmodule\controllers;
 
 use Yii;
-use ut8ia\contentmodule\models\ArticleRubrics;
-use ut8ia\contentmodule\models\ArticleRuricsSearch;
+use ut8ia\contentmodule\models\ContentRubrics;
+use ut8ia\contentmodule\models\ContentSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 
 /**
- * ArticleRubricsController implements the CRUD actions for ArticleRubrics model.
+ * ContentRubricsController implements the CRUD actions for ContentRubrics model.
  */
-class ArticlerubricsController extends Controller {
+class ContentrubricsController extends Controller {
 
     public function behaviors()
     {
@@ -29,11 +29,11 @@ class ArticlerubricsController extends Controller {
                 'rules' => [
                     [
                         'allow' => true,
-                        'actions' => ['index', 'view', 'update', 'create', 'delete', 'test'],
+                        'actions' => ['index', 'view', 'update', 'create', 'delete'],
                         'roles' => ['@']
                     ],
                     [
-                        'actions' => ['index', 'view', 'update', 'create', 'delete', 'test'],
+                        'actions' => ['index', 'view', 'update', 'create', 'delete'],
                         'allow' => true,
                         'roles' => ['?'],
                     ],
@@ -43,12 +43,12 @@ class ArticlerubricsController extends Controller {
     }
 
     /**
-     * Lists all ArticleRubrics models.
+     * Lists all ContentRubrics models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new ArticleRubricsSearch();
+        $searchModel = new ContentSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -58,7 +58,7 @@ class ArticlerubricsController extends Controller {
     }
 
     /**
-     * Displays a single ArticleRubrics model.
+     * Displays a single ContentRubrics model.
      * @param integer $id
      * @return mixed
      */
@@ -70,13 +70,13 @@ class ArticlerubricsController extends Controller {
     }
 
     /**
-     * Creates a new ArticleRubrics model.
+     * Creates a new ContentRubrics model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new ArticleRubrics();
+        $model = new ContentRubrics();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -88,7 +88,7 @@ class ArticlerubricsController extends Controller {
     }
 
     /**
-     * Updates an existing ArticleRubrics model.
+     * Updates an existing ContentRubrics model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -107,7 +107,7 @@ class ArticlerubricsController extends Controller {
     }
 
     /**
-     * Deletes an existing ArticleRubrics model.
+     * Deletes an existing ContentRubrics model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -120,15 +120,15 @@ class ArticlerubricsController extends Controller {
     }
 
     /**
-     * Finds the ArticleRubrics model based on its primary key value.
+     * Finds the ContentRubrics model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return ArticleRubrics the loaded model
+     * @return ContentRubrics the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = ArticleRubrics::findOne($id)) !== null) {
+        if (($model = ContentRubrics::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

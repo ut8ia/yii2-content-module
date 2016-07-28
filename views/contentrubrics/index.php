@@ -4,16 +4,16 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 
 /* @var $this yii\web\View */
-/* @var $searchModel common\models\ArticleSearch */
+/* @var $searchModel ut8ia\contentmodule\models\ContentSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('app', 'Article Rubrics');
+$this->title = Yii::t('app', 'Content Rubrics');
 ?>
-<div class="article-rubrics-index">
+<div class="content-rubrics-index">
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a(Yii::t('app', 'Create Article Rubrics'), ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(Yii::t('app', 'Create Content Rubrics'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?=     GridView::widget([

@@ -3,7 +3,7 @@
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
-/* @var $model common\models\Articles */
+/* @var $model ut8ia\contentmodule\models\Content */
 
 $this->title = Yii::t('app', 'Update {modelClass}: ', [
     'modelClass' => 'Articles',
@@ -12,7 +12,7 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Articles'), 'url' =>
 $this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
 ?>
-<div class="articles-update">
+<div class="content-update">
 
     <?= $this->render('_form', [
         'model' => $model,

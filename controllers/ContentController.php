@@ -3,17 +3,17 @@
 namespace ut8ia\contentmodule\controllers;
 
 use Yii;
-use ut8ia\contentmodule\models\Articles;
-use ut8ia\contentmodule\models\ArticlesSearch;
+use ut8ia\contentmodule\models\Content;
+use ut8ia\contentmodule\models\ContentSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 
 /**
- * ArticlesController implements the CRUD actions for Articles model.
+ * ContentController implements the CRUD actions for Content model.
  */
-class ArticlesController extends Controller {
+class ContentController extends Controller {
 
     public function behaviors() {
         return [
@@ -28,11 +28,11 @@ class ArticlesController extends Controller {
                 'rules' => [
                     [
                         'allow' => true,
-                        'actions' => ['index', 'view', 'update', 'create', 'delete', 'test'],
+                        'actions' => ['index', 'view', 'update', 'create', 'delete'],
                         'roles' => ['@']
                     ],
                     [
-                        'actions' => ['index', 'view', 'update', 'create', 'delete', 'test'],
+                        'actions' => ['index', 'view', 'update', 'create', 'delete'],
                         'allow' => true,
                         'roles' => ['?'],
                     ],
@@ -42,14 +42,12 @@ class ArticlesController extends Controller {
     }
 
     /**
-     * Lists all Articles models.
+     * Lists all Content models.
      * @return mixed
      */
     public function actionIndex() {
-        $searchModel = new ArticlesSearch();
+        $searchModel = new ContentSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
-//        var_dump(\Yii::$app->authManager->getRolesByUser(1));die;
         return $this->render('index', [
                     'searchModel' => $searchModel,
                     'dataProvider' => $dataProvider,
@@ -57,7 +55,7 @@ class ArticlesController extends Controller {
     }
 
     /**
-     * Displays a single Articles model.
+     * Displays a single Content model.
      * @param integer $id
      * @return mixed
      */
@@ -68,12 +66,12 @@ class ArticlesController extends Controller {
     }
 
     /**
-     * Creates a new Articles model.
+     * Creates a new Content model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate() {
-        $model = new Articles();
+        $model = new Content();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -85,7 +83,7 @@ class ArticlesController extends Controller {
     }
 
     /**
-     * Updates an existing Articles model.
+     * Updates an existing Content model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -103,7 +101,7 @@ class ArticlesController extends Controller {
     }
 
     /**
-     * Deletes an existing Articles model.
+     * Deletes an existing Content model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -114,14 +112,14 @@ class ArticlesController extends Controller {
     }
 
     /**
-     * Finds the Articles model based on its primary key value.
+     * Finds the Content model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Articles the loaded model
+     * @return Content the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id) {
-        if (($model = Articles::findOne($id)) !== null) {
+        if (($model = Content::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

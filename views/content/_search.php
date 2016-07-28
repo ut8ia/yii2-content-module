@@ -1,16 +1,16 @@
 <?php
 
-use ut8ia\contentmodule\models\ArticleRubrics;
+use ut8ia\contentmodule\models\ContentRubrics;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-use  ut8ia\multylang\models\Lang;
+use ut8ia\multylang\models\Lang;
 
 /* @var $this yii\web\View */
-/* @var $model common\models\ArticlesSearch */
+/* @var $model ut8ia\contentmodule\models\ContentsSearch */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="articles-search search-block">
+<div class="content-search search-block">
 
     <?php $form = ActiveForm::begin([
         'action' => ['index'],
@@ -25,7 +25,7 @@ use  ut8ia\multylang\models\Lang;
     <?=
     $form->field($model, 'rubric_id', [
         'template' => '<div class="col-lg-5">{input}</div>',
-        'options' => ['class' => 'inline']])->dropDownList(ArticleRubrics::selector([''=>'все рубрики']));
+        'options' => ['class' => 'inline']])->dropDownList(ContentRubrics::selector([''=>'все рубрики']));
     ?>
     <div class="col-lg-2">
         <?= Html::submitButton(Yii::t('app', 'Search'), ['class' => 'btn btn-primary']) ?>

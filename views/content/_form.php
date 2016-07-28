@@ -5,9 +5,9 @@ use yii\widgets\ActiveForm;
 use dosamigos\datetimepicker\DateTimePicker;
 use pendalf89\filemanager\widgets\TinyMCE;
 use kartik\select2\Select2;
-use  ut8ia\multylang\models\Lang;
-use  ut8ia\contentmodule\models\ArticleRubrics;
-use  ut8ia\contentmodule\models\Tags;
+use ut8ia\multylang\models\Lang;
+use ut8ia\contentmodule\models\ContentRubrics;
+use ut8ia\contentmodule\models\Tags;
 
 
 $model->SystemTags = $model->getLinkedTagsByType($model->id, 1, 0, null);
@@ -15,17 +15,17 @@ $model->NavTags = $model->getLinkedTagsByType($model->id, 2, 0, null);
 $tags = new Tags();
 
 ?>
-<div class="articles-form">
+<div class="content-form">
 
     <?php
     $form = ActiveForm::begin([
-        'enableClientValidation' => false,
-        'options' => ['class' => 'form-horizontal', 'style' => 'padding-left:0px;'],
-        'fieldConfig' => [
-            'template' => '<div class="col-lg-2 small">{label}</div><div class="col-lg-10">{input}{error}</div>',
-            'labelOptions' => ['style' => 'font-weight: lighter;'],
-            'inputOptions' => ['class' => 'form-control'],
-        ],
+                'enableClientValidation' => false,
+                'options' => ['class' => 'form-horizontal', 'style' => 'padding-left:0px;'],
+                'fieldConfig' => [
+                    'template' => '<div class="col-lg-2 small">{label}</div><div class="col-lg-10">{input}{error}</div>',
+                    'labelOptions' => ['style' => 'font-weight: lighter;'],
+                    'inputOptions' => ['class' => 'form-control'],
+                ],
     ]);
     ?>
 
@@ -49,7 +49,7 @@ $tags = new Tags();
         <?=
         $form->field($model, 'rubric_id', [
             'template' => '<div class="col-lg-10">{input}</div>',
-            'options' => ['class' => 'inline']])->dropDownList(ArticleRubrics::selector());
+            'options' => ['class' => 'inline']])->dropDownList(ContentRubrics::selector());
         ?>
 
     </div>
@@ -69,13 +69,12 @@ $tags = new Tags();
         ],
     ]);
 
-    ?>
+    ?>    
 
     <iframe id="form_target" name="form_target" style="display:none">
-        <form id="my_form" action="/upload/" target="form_target" method="post" enctype="multipart/form-data"
-              style="width:0px;height:0;overflow:hidden">
-            <input name="image" type="file" onchange="$('#my_form').submit();this.value='';">
-        </form>
+    <form id="my_form" action="/upload/" target="form_target" method="post" enctype="multipart/form-data"  style="width:0px;height:0;overflow:hidden">
+        <input name="image" type="file" onchange="$('#my_form').submit();this.value='';">
+    </form>
     </iframe>
 
 
@@ -86,7 +85,7 @@ $tags = new Tags();
         'options' => [
             'multiple' => true,
             'placeholder' => 'Tags for navigation and seo'
-        ],
+            ],
         'pluginOptions' => [
             'allowClear' => true
         ],
@@ -103,7 +102,6 @@ $tags = new Tags();
         ],
     ]);
     ?>
-
 
     <div class="form-group row">
         <div class="col-lg-2 small"><?php echo Yii::t('main', 'Date'); ?></div>
@@ -131,10 +129,10 @@ $tags = new Tags();
                 echo $model->author->username;
             }
             ?>
-        </div>
+        </div>   
         <div class="col-lg-5">
             <?= $form->field($model, 'stick')->checkbox(); ?>
-        </div>
+        </div>  
 
     </div>
     <div class="form-group">

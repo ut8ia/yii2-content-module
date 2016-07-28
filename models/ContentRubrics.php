@@ -2,18 +2,17 @@
 
 namespace ut8ia\contentmodule\models;
 
-use ut8ia\multylang\models\Lang;
 use yii\db\ActiveRecord;
 use Yii;
 
 /**
- * This is the model class for table "article_rubrics".
+ * This is the model class for table "content_rubrics".
  *
  * @property integer $id
  * @property string $name_en
  * @property string $name_ru
  */
-class ArticleRubrics extends ActiveRecord
+class ContentRubrics extends ActiveRecord
 {
 
     /**
@@ -21,7 +20,7 @@ class ArticleRubrics extends ActiveRecord
      */
     public static function tableName()
     {
-        return 'article_rubrics';
+        return 'content_rubrics';
     }
 
     /**
@@ -50,7 +49,7 @@ class ArticleRubrics extends ActiveRecord
     public static function selector($nullOption = null)
     {
         $lang_url = Lang::getCurrent()->url;
-        $out = ArticleRubrics::find()
+        $out = ContentRubrics::find()
             ->select('name_' . $lang_url)
             ->indexBy('id')
             ->column();

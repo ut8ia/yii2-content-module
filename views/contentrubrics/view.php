@@ -4,14 +4,16 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model common\models\Articles */
+/* @var $model ut8ia\contentmodule\models\ContentRubrics */
 
-$this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Articles'), 'url' => ['index']];
+$this->title = $model->id;
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Content Rubrics'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="articles-view">
+<div class="content-rubrics-view">
+
     <h1><?= Html::encode($this->title) ?></h1>
+
     <p>
         <?= Html::a(Yii::t('app', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
         <?= Html::a(Yii::t('app', 'Delete'), ['delete', 'id' => $model->id], [
@@ -22,19 +24,14 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ]) ?>
     </p>
-    <div>
-        <?= $model->text; ?>      
-    </div>
-    <?php
-//DetailView::widget([
-//        'model' => $model,
-//        'attributes' => [
-//            'id',
-//            'name',
-//            'text:ntext',
-//            'date',
-//        ],
-//    ]) 
-        ?>
+
+    <?= DetailView::widget([
+        'model' => $model,
+        'attributes' => [
+            'id',
+            'name_en',
+            'name_ru',
+        ],
+    ]) ?>
 
 </div>

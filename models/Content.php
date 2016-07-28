@@ -6,10 +6,11 @@ use Yii;
 use yii\db\ActiveRecord;
 use pendalf89\filemanager\behaviors\MediafileBehavior;
 use ut8ia\multylang\models\Lang;
-use common\models\User;
-
+use ut8ia\contentmodule\models\ContentRubrics;
+use ut8ia\contentmodule\models\Tags;
+use ut8ia\contentmodule\models\TagsLink;
 /**
- * This is the model class for table "articles".
+ * This is the model class for table "content".
  *
  * @property integer $id
  * @property string $name
@@ -22,7 +23,7 @@ use common\models\User;
  * @property string $stick
  *
  */
-class Articles extends ActiveRecord
+class Content extends ActiveRecord
 {
 
     /**
@@ -33,7 +34,7 @@ class Articles extends ActiveRecord
 
     public static function tableName()
     {
-        return 'articles';
+        return 'content';
     }
 
 
@@ -79,7 +80,7 @@ class Articles extends ActiveRecord
             ],
             'mediafile' => [
                 'class' => MediafileBehavior::className(),
-                'name' => 'article',
+                'name' => 'content',
                 'attributes' => [
                     'thumbnail',
                 ]
@@ -95,7 +96,7 @@ class Articles extends ActiveRecord
 
     public function getRubric()
     {
-        return $this->hasOne(ArticleRubrics::class, ['id' => 'rubric_id']);
+        return $this->hasOne(ContentRubrics::class, ['id' => 'rubric_id']);
     }
 
 
@@ -163,7 +164,7 @@ class Articles extends ActiveRecord
 
     public function getDefault()
     {
-        return Articles::findOne(0);
+        return Content::findOne(0);
     }
 
     /**
@@ -173,10 +174,10 @@ class Articles extends ActiveRecord
      */
     public function getLast($rubric_id = null, $limit = null)
     {
-        $ans = Articles::find()
+        $ans = Content::find()
             ->orderBy('date DESC')
             ->where(['=', 'rubric_id', $rubric_id])
-            ->andWhere(['=', '`articles`.`lang_id`', Lang::getCurrent()->id]);
+            ->andWhere(['=', '`content`.`lang_id`', Lang::getCurrent()->id]);
         // if set limit - return all 
         $ans = (isset($limit)) ? $ans->limit($limit)->all() : $ans->one();
 
@@ -190,9 +191,9 @@ class Articles extends ActiveRecord
      */
     public function byRubric($rubric_id, $limit = null)
     {
-        $ans = Articles::find()
+        $ans = Content::find()
             ->where(['=', 'rubric_id', $rubric_id])
-            ->andWhere(['=', '`articles`.`lang_id`', Lang::getCurrent()->id])
+            ->andWhere(['=', '`content`.`lang_id`', Lang::getCurrent()->id])
             ->orderBy('date DESC');
         $ans = ((int)$limit) ? $ans->limit($limit) : $ans;
         $ans = $ans->all();
@@ -208,15 +209,15 @@ class Articles extends ActiveRecord
      */
     public function byRubricTag($rubric_id, $tag, $tag_type, $limit = null)
     {
-        $ans = Articles::find()
+        $ans = Content::find()
             ->from(['tags'])
             ->join('INNER JOIN', 'tags_link', '`tags_link`.`tag_id` = `tags`.`id`')
-            ->join('INNER JOIN', 'articles', '`articles`.`id` = `tags_link`.`link_id`')
-            ->select('`articles`.*')
+            ->join('INNER JOIN', 'content', '`content`.`id` = `tags_link`.`link_id`')
+            ->select('`content`.*')
             ->where(['=', '`tags`.`name`', $tag])
             ->andWhere(['=', 'rubric_id', $rubric_id])
             ->andWhere(['=', '`tags`.`type`', $tag_type])
-            ->andWhere(['=', '`articles`.`lang_id`', Lang::getCurrent()->id])
+            ->andWhere(['=', '`content`.`lang_id`', Lang::getCurrent()->id])
             ->orderBy('date DESC');
 
         $ans = ((int)$limit) ? $ans->limit($limit) : $ans;
@@ -231,9 +232,9 @@ class Articles extends ActiveRecord
      */
     public function StickByRubric($rubric_id, $limit = null)
     {
-        $ans = Articles::find()
+        $ans = Content::find()
             ->where(['=', 'rubric_id', $rubric_id])
-            ->andWhere(['=', '`articles`.`lang_id`', Lang::getCurrent()->id])
+            ->andWhere(['=', '`content`.`lang_id`', Lang::getCurrent()->id])
             ->andWhere(['=', 'stick', 'true'])
             ->orderBy('date DESC');
         $ans = ((int)$limit) ? $ans->limit($limit) : $ans;
@@ -247,18 +248,18 @@ class Articles extends ActiveRecord
      */
     public function byTag($tag)
     {
-        $ans = Articles::find()
+        $ans = Content::find()
             ->from(['tags'])
             ->join('INNER JOIN', 'tags_link', '`tags_link`.`tag_id` = `tags`.`id`')
-            ->join('INNER JOIN', 'articles', '`articles`.`id` = `tags_link`.`link_id`')
-            ->select('`articles`.*')
+            ->join('INNER JOIN', 'content', '`content`.`id` = `tags_link`.`link_id`')
+            ->select('`content`.*')
             ->where(['=', '`tags`.`name`', $tag])
-            ->andWhere(['=', '`articles`.`lang_id`', Lang::getCurrent()->id])
+            ->andWhere(['=', '`content`.`lang_id`', Lang::getCurrent()->id])
             ->orderBy('date DESC')
             ->one();
 
         if (!isset($ans->id)) {
-            $ans = Articles::getDefault();
+            $ans = Content::getDefault();
         }
         return $ans;
     }
@@ -275,12 +276,12 @@ class Articles extends ActiveRecord
     {
         $out = "";
         $ans = Tags::find()
-            ->from(['articles'])
-            ->join('INNER JOIN', 'tags_link', '`tags_link`.`link_id` = `articles`.`id`')
+            ->from(['content'])
+            ->join('INNER JOIN', 'tags_link', '`tags_link`.`link_id` = `content`.`id`')
             ->join('INNER JOIN', 'tags', '`tags`.`id` = `tags_link`.`tag_id`')
             ->select(['`tags`.*'])
             ->indexBy('id')
-            ->where(['=', '`articles`.`id`', $article_id])
+            ->where(['=', '`content`.`id`', $article_id])
             ->andWhere(['=', '`tags`.`type`', $tag_type]);
         if ((int)$limit) {
             $ans->limit($limit);
@@ -300,15 +301,15 @@ class Articles extends ActiveRecord
     }
 
     /**
-     * tags collection for the article
+     * tags collection for the content
      * @return array
      */
     public function collection()
     {
-        return Articles::find()
+        return Content::find()
             ->asArray()
             ->with('tags')
-            ->where(['=', '`articles`.`lang_id`', Lang::getCurrent()->id])
+            ->where(['=', '`content`.`lang_id`', Lang::getCurrent()->id])
             ->all();
     }
 
@@ -317,7 +318,7 @@ class Articles extends ActiveRecord
      */
     public function selector()
     {
-        return Articles::find()
+        return Content::find()
             ->select('name')
             ->indexBy('id')
             ->column();

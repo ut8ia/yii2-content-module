@@ -5,12 +5,12 @@ namespace ut8ia\contentmodule\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use ut8ia\contentmodule\models\Tags;
+use ut8ia\contentmodule\models\Content;
 
 /**
- * TagsSearch represents the model behind the search form about `ut8ia\contentmodule\models\Tags`.
+ * ContentSearch represents the model behind the search form about `ut8ia\contentmodule\models\Content`.
  */
-class TagsSearch extends Tags
+class ContentSearch extends Content
 {
     /**
      * @inheritdoc
@@ -18,8 +18,8 @@ class TagsSearch extends Tags
     public function rules()
     {
         return [
-            [['id', 'type'], 'integer'],
-            [['name'], 'safe'],
+            [['id'], 'integer'],
+            [['name', 'text', 'date','lang_id','rubric_id'], 'safe'],
         ];
     }
 
@@ -41,7 +41,7 @@ class TagsSearch extends Tags
      */
     public function search($params)
     {
-        $query = Tags::find();
+        $query = Content::find()->orderBy(['id'=>SORT_DESC]);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -57,10 +57,13 @@ class TagsSearch extends Tags
 
         $query->andFilterWhere([
             'id' => $this->id,
-            'type' => $this->type,
+            'date' => $this->date,
+            'lang_id' => $this->lang_id,
+            'rubric_id' => $this->rubric_id,
         ]);
 
-        $query->andFilterWhere(['like', 'name', $this->name]);
+        $query->andFilterWhere(['like', 'name', $this->name])
+            ->andFilterWhere(['like', 'text', $this->text]);
 
         return $dataProvider;
     }
