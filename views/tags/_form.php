@@ -2,7 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-use common\models\Tags;
+use ut8ia\contentmodule\models\Tags;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Tags */

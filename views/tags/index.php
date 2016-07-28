@@ -2,7 +2,7 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
-use common\models\Tags;
+use ut8ia\contentmodule\models\Tags;
 
 /* @var $this yii\web\View */
 /* @var $searchModel common\models\TagsSearch */

@@ -4,7 +4,7 @@ namespace ut8ia\contentmodule\controllers;
 
 use Yii;
 use ut8ia\contentmodule\models\ContentRubrics;
-use ut8ia\contentmodule\models\ContentSearch;
+use ut8ia\contentmodule\models\ContentRubricsSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -48,7 +48,7 @@ class ContentrubricsController extends Controller {
      */
     public function actionIndex()
     {
-        $searchModel = new ContentSearch();
+        $searchModel = new ContentRubricsSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [

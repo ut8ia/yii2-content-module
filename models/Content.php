@@ -9,6 +9,7 @@ use ut8ia\multylang\models\Lang;
 use ut8ia\contentmodule\models\ContentRubrics;
 use ut8ia\contentmodule\models\Tags;
 use ut8ia\contentmodule\models\TagsLink;
+use common\models\User;
 /**
  * This is the model class for table "content".
  *
