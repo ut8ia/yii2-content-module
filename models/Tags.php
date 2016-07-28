@@ -27,7 +27,7 @@ class Tags extends ActiveRecord
      */
     public static function tableName()
     {
-        return 'tags';
+        return 'contentmanager_tags';
     }
 
 

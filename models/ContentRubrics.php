@@ -7,7 +7,7 @@ use yii\db\ActiveRecord;
 use Yii;
 
 /**
- * This is the model class for table "content_rubrics".
+ * This is the model class for table "contentmanager_rubrics".
  *
  * @property integer $id
  * @property string $name_en
@@ -21,7 +21,7 @@ class ContentRubrics extends ActiveRecord
      */
     public static function tableName()
     {
-        return 'content_rubrics';
+        return 'contentmanager_rubrics';
     }
 
     /**

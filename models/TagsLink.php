@@ -19,7 +19,7 @@ class TagsLink extends \yii\db\ActiveRecord {
      */
     public static function tableName()
     {
-        return 'tags_link';
+        return 'contentmanager_tags_link';
     }
 
     /**

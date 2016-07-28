@@ -35,7 +35,7 @@ class Content extends ActiveRecord
 
     public static function tableName()
     {
-        return 'content';
+        return 'contentmanager_content';
     }
 
 
@@ -178,7 +178,7 @@ class Content extends ActiveRecord
         $ans = Content::find()
             ->orderBy('date DESC')
             ->where(['=', 'rubric_id', $rubric_id])
-            ->andWhere(['=', '`content`.`lang_id`', Lang::getCurrent()->id]);
+            ->andWhere(['=', '`contentmanager_content`.`lang_id`', Lang::getCurrent()->id]);
         // if set limit - return all 
         $ans = (isset($limit)) ? $ans->limit($limit)->all() : $ans->one();
 
@@ -194,7 +194,7 @@ class Content extends ActiveRecord
     {
         $ans = Content::find()
             ->where(['=', 'rubric_id', $rubric_id])
-            ->andWhere(['=', '`content`.`lang_id`', Lang::getCurrent()->id])
+            ->andWhere(['=', '`contentmanager_content`.`lang_id`', Lang::getCurrent()->id])
             ->orderBy('date DESC');
         $ans = ((int)$limit) ? $ans->limit($limit) : $ans;
         $ans = $ans->all();
@@ -211,14 +211,14 @@ class Content extends ActiveRecord
     public function byRubricTag($rubric_id, $tag, $tag_type, $limit = null)
     {
         $ans = Content::find()
-            ->from(['tags'])
-            ->join('INNER JOIN', 'tags_link', '`tags_link`.`tag_id` = `tags`.`id`')
-            ->join('INNER JOIN', 'content', '`content`.`id` = `tags_link`.`link_id`')
-            ->select('`content`.*')
-            ->where(['=', '`tags`.`name`', $tag])
+            ->from(['contentmanager_tags'])
+            ->join('INNER JOIN', 'contentmanager_tags_link', '`contentmanager_tags_link`.`tag_id` = `contentmanager_tags`.`id`')
+            ->join('INNER JOIN', 'contentmanager_content', '`contentmanager_content`.`id` = `contentmanager_tags_link`.`link_id`')
+            ->select('`contentmanager_content`.*')
+            ->where(['=', '`contentmanager_tags`.`name`', $tag])
             ->andWhere(['=', 'rubric_id', $rubric_id])
-            ->andWhere(['=', '`tags`.`type`', $tag_type])
-            ->andWhere(['=', '`content`.`lang_id`', Lang::getCurrent()->id])
+            ->andWhere(['=', '`contentmanager_tags`.`type`', $tag_type])
+            ->andWhere(['=', '`contentmanager_content`.`lang_id`', Lang::getCurrent()->id])
             ->orderBy('date DESC');
 
         $ans = ((int)$limit) ? $ans->limit($limit) : $ans;
@@ -235,7 +235,7 @@ class Content extends ActiveRecord
     {
         $ans = Content::find()
             ->where(['=', 'rubric_id', $rubric_id])
-            ->andWhere(['=', '`content`.`lang_id`', Lang::getCurrent()->id])
+            ->andWhere(['=', '`contentmanager_content`.`lang_id`', Lang::getCurrent()->id])
             ->andWhere(['=', 'stick', 'true'])
             ->orderBy('date DESC');
         $ans = ((int)$limit) ? $ans->limit($limit) : $ans;
@@ -250,12 +250,12 @@ class Content extends ActiveRecord
     public function byTag($tag)
     {
         $ans = Content::find()
-            ->from(['tags'])
-            ->join('INNER JOIN', 'tags_link', '`tags_link`.`tag_id` = `tags`.`id`')
-            ->join('INNER JOIN', 'content', '`content`.`id` = `tags_link`.`link_id`')
-            ->select('`content`.*')
-            ->where(['=', '`tags`.`name`', $tag])
-            ->andWhere(['=', '`content`.`lang_id`', Lang::getCurrent()->id])
+            ->from(['contentmanager_tags'])
+            ->join('INNER JOIN', 'contentmanager_tags_link', '`contentmanager_tags_link`.`tag_id` = `contentmanager_tags`.`id`')
+            ->join('INNER JOIN', 'content', '`contentmanager_content`.`id` = `contentmanager_tags_link`.`link_id`')
+            ->select('`contentmanager_content`.*')
+            ->where(['=', '`contentmanager_tags`.`name`', $tag])
+            ->andWhere(['=', '`contentmanager_content`.`lang_id`', Lang::getCurrent()->id])
             ->orderBy('date DESC')
             ->one();
 
@@ -277,13 +277,13 @@ class Content extends ActiveRecord
     {
         $out = "";
         $ans = Tags::find()
-            ->from(['content'])
-            ->join('INNER JOIN', 'tags_link', '`tags_link`.`link_id` = `content`.`id`')
-            ->join('INNER JOIN', 'tags', '`tags`.`id` = `tags_link`.`tag_id`')
-            ->select(['`tags`.*'])
+            ->from(['contentmanager_content'])
+            ->join('INNER JOIN', 'contentmanager_tags_link', '`contentmanager_tags_link`.`link_id` = `contentmanager_content`.`id`')
+            ->join('INNER JOIN', 'contentmanager_tags', '`contentmanager_tags`.`id` = `contentmanager_tags_link`.`tag_id`')
+            ->select(['`contentmanager_tags`.*'])
             ->indexBy('id')
-            ->where(['=', '`content`.`id`', $article_id])
-            ->andWhere(['=', '`tags`.`type`', $tag_type]);
+            ->where(['=', '`contentmanager_content`.`id`', $article_id])
+            ->andWhere(['=', '`contentmanager_tags`.`type`', $tag_type]);
         if ((int)$limit) {
             $ans->limit($limit);
         }
@@ -310,7 +310,7 @@ class Content extends ActiveRecord
         return Content::find()
             ->asArray()
             ->with('tags')
-            ->where(['=', '`content`.`lang_id`', Lang::getCurrent()->id])
+            ->where(['=', '`contentmanager_content`.`lang_id`', Lang::getCurrent()->id])
             ->all();
     }
 
