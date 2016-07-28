@@ -7,6 +7,7 @@ use yii\db\ActiveRecord;
 use pendalf89\filemanager\behaviors\MediafileBehavior;
 use ut8ia\multylang\models\Lang;
 use ut8ia\contentmodule\models\ContentRubrics;
+use ut8ia\contentmodule\models\ContentSections;
 use ut8ia\contentmodule\models\Tags;
 use ut8ia\contentmodule\models\TagsLink;
 use common\models\User;
@@ -21,6 +22,7 @@ use common\models\User;
  * @property string $date
  * @property string $rubric_id
  * @property string $author_id
+ * @property string $section_id
  * @property string $stick
  *
  */
@@ -45,10 +47,10 @@ class Content extends ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'text', 'date', 'lang_id', 'rubric_id'], 'required'],
+            [['name', 'text', 'lang_id', 'rubric_id','section_id'], 'required'],
             [['text', 'slug', 'stick'], 'string'],
             [['date', 'author_id', 'SystemTags', 'NavTags'], 'safe'],
-            ['thumbnail','integer'],
+            [['section_id','lang_id','rubric_id'],'integer'],
             [['name'], 'string', 'max' => 255]
         ];
     }
@@ -66,6 +68,7 @@ class Content extends ActiveRecord
             'date' => 'Date',
             'author_id' => 'Author',
             'rubric_id' => 'Theme',
+            'section_id' =>'Section',
             'stick' => Yii::t('main', 'stick')
         ];
     }
@@ -101,6 +104,11 @@ class Content extends ActiveRecord
     }
 
 
+    public function getSection(){
+        return $this->hasOne(ContentSections::class, ['id' => 'section_id']);
+    }
+
+
     public function getLanguage()
     {
         return $this->hasOne(Lang::class, ['id' => 'lang_id']);
@@ -127,6 +135,7 @@ class Content extends ActiveRecord
     {
         return $this->getLinkedTagsByType($this->id, 2, 0, null);
     }
+
 
 
     public function beforeSave($insert)

@@ -1,10 +1,10 @@
 <?php
 
-namespace ut8ia\contentmanager\controllers;
+namespace ut8ia\contentmodule\controllers;
 
 use Yii;
-use ut8ia\contentmanager\models\ContentSections;
-use ut8ia\contentmanager\models\ContentSectionsSearch;
+use ut8ia\contentmodule\models\ContentSections;
+use ut8ia\contentmodule\models\ContentSectionsSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -85,7 +85,7 @@ class ContentsectionsController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->actionIndex();
         } else {
             return $this->render('update', [
                 'model' => $model,

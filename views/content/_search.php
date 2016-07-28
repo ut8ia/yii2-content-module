@@ -25,7 +25,7 @@ use ut8ia\multylang\models\Lang;
     <?=
     $form->field($model, 'rubric_id', [
         'template' => '<div class="col-lg-5">{input}</div>',
-        'options' => ['class' => 'inline']])->dropDownList(ContentRubrics::selector([''=>'все рубрики']));
+        'options' => ['class' => 'inline']])->dropDownList(ContentRubrics::selector($model->section_id,[''=>'все рубрики']));
     ?>
     <div class="col-lg-2">
         <?= Html::submitButton(Yii::t('app', 'Search'), ['class' => 'btn btn-primary']) ?>

@@ -21,17 +21,18 @@ $this->title = Yii::t('app', 'Content Rubrics');
     //    'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\ActionColumn',
-                'contentOptions' => ['class' => 'col-sm-1 small text-right', 'nowrap' => 'nowrap'],],
+                'contentOptions' => ['class' => ' small text-right', 'nowrap' => 'nowrap'],],
+
             [
-                'contentOptions' => ['class' => 'col-sm-1 small text-right'],
-                'attribute' => 'id',
+                'contentOptions' => ['class' => 'col-sm-4 small text-left'],
+                'attribute' => 'section_id',
                 'format' => 'html',
                 'value' => function ($model) {
-            return $model->id;
-        },
+                    return $model->section->name;
+                },
             ],
             [
-                'contentOptions' => ['class' => 'col-sm-7 small text-left'],
+                'contentOptions' => ['class' => 'col-sm-4 small text-left'],
                 'attribute' => 'Name',
                 'format' => 'html',
                 'value' => function ($model) {
@@ -39,7 +40,7 @@ $this->title = Yii::t('app', 'Content Rubrics');
         },
             ],
             [
-                'contentOptions' => ['class' => 'col-sm-7 small text-left'],
+                'contentOptions' => ['class' => 'col-sm-4 small text-left'],
                 'attribute' => 'Name',
                 'format' => 'html',
                 'value' => function ($model) {

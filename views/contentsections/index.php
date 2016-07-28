@@ -11,23 +11,32 @@ $this->title = Yii::t('app', 'Content Sections');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="content-sections-index">
-
-    <h1><?= Html::encode($this->title) ?></h1>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
     <p>
         <?= Html::a(Yii::t('app', 'Create Content Sections'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
-            'id',
-            'name',
-
-            ['class' => 'yii\grid\ActionColumn'],
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'contentOptions' => ['class' => 'col-sm-1 small text-right', 'nowrap' => 'nowrap']
+            ],
+            [
+                'contentOptions' => ['class' => 'col-sm-1 small text-right'],
+                'attribute' => 'id',
+                'format' => 'html',
+                'value' => function ($model) {
+                    return $model->id;
+                },
+            ],
+            [
+                'contentOptions' => ['class' => 'col-sm-11 small text-right'],
+                'attribute' => 'name',
+                'format' => 'html',
+                'value' => function ($model) {
+                    return $model->name;
+                },
+            ],
         ],
     ]); ?>
 </div>

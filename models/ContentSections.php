@@ -41,4 +41,32 @@ class ContentSections extends \yii\db\ActiveRecord
             'name' => Yii::t('app', 'Name'),
         ];
     }
+
+    /**
+     * @param null $nullOption
+     * @return array|null
+     */
+    public static function selector($nullOption = null)
+    {
+        $out = ContentSections::find()
+            ->select('name')
+            ->indexBy('id')
+            ->column();
+
+        if ($nullOption) {
+            $out = $nullOption + $out;
+        }
+        return $out;
+    }
+
+
+    /**
+     * @return bool
+     */
+    public function beforeDelete()
+    {
+        return parent::beforeDelete(); // TODO: bind rubrics and content to zero section
+    }
+
+
 }

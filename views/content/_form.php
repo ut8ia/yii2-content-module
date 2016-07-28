@@ -7,6 +7,7 @@ use pendalf89\filemanager\widgets\TinyMCE;
 use kartik\select2\Select2;
 use ut8ia\multylang\models\Lang;
 use ut8ia\contentmodule\models\ContentRubrics;
+use ut8ia\contentmodule\models\ContentSections;
 use ut8ia\contentmodule\models\Tags;
 
 
@@ -47,9 +48,15 @@ $tags = new Tags();
     <div class="form-group row">
         <div class="col-lg-2 small"><?php echo Yii::t('main', 'Rubric'); ?></div>
         <?=
+        $form->field($model, 'section_id', [
+            'template' => '<div class="col-lg-5">{input}</div>',
+            'options' => ['class' => 'inline']])->dropDownList(ContentSections::selector());
+        ?>
+
+        <?=
         $form->field($model, 'rubric_id', [
-            'template' => '<div class="col-lg-10">{input}</div>',
-            'options' => ['class' => 'inline']])->dropDownList(ContentRubrics::selector());
+            'template' => '<div class="col-lg-5">{input}</div>',
+            'options' => ['class' => 'inline']])->dropDownList(ContentRubrics::selector($model->section_id));
         ?>
 
     </div>
