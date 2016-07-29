@@ -32,7 +32,8 @@ class ContentRubrics extends ActiveRecord
     public function rules()
     {
         return [
-            [['name_en', 'name_ru'], 'required'],
+            [['name_en', 'name_ru','section_id'], 'required'],
+            ['section_id' ,'integer'],
             [['name_en', 'name_ru'], 'string', 'max' => 255]
         ];
     }
@@ -46,6 +47,7 @@ class ContentRubrics extends ActiveRecord
             'id' => Yii::t('app', 'ID'),
             'name_en' => Yii::t('app', 'Name En'),
             'name_ru' => Yii::t('app', 'Name Ru'),
+            'section_id'=> Yii::t('app', 'Section'),
         ];
     }
 

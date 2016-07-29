@@ -23,7 +23,6 @@ $this->title = Yii::t('app', 'Content');
             'contentOptions' => ['class' => 'small text-right', 'nowrap' => 'nowrap'],],
             [
                 'contentOptions' => ['class' => 'small text-left'],
-//                'attribute' => '',
                 'format' => 'html',
                 'value' => function($model) {
                     switch ($model->language->url) {
@@ -38,14 +37,6 @@ $this->title = Yii::t('app', 'Content');
                     }
                     $lng = "<span class='label " . $class . "'>" . strtoupper($model->language->url) . "</span>";
                     return $lng;
-                },
-            ],
-            [
-                'contentOptions' => ['class' => 'col-sm-2 small text-left'],
-                'attribute' => 'Name',
-                'format' => 'html',
-                'value' => function($model) {
-                    return  $model->section->name;
                 },
             ],
             [

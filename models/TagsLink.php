@@ -60,7 +60,6 @@ class TagsLink extends \yii\db\ActiveRecord {
             $tags[] = $tags;
         }
 
-//        dd($tags);
         foreach ($tags as $ind => $val) {
             $tagsLink = new TagsLink();
             $tagsLink->link_type_id = $type;

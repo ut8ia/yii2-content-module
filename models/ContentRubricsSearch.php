@@ -18,7 +18,7 @@ class ContentRubricsSearch extends ContentRubrics
     public function rules()
     {
         return [
-            [['id'], 'integer'],
+            [['id','section_id'], 'integer'],
             [['name_en', 'name_ru'], 'safe'],
         ];
     }
@@ -41,7 +41,11 @@ class ContentRubricsSearch extends ContentRubrics
      */
     public function search($params)
     {
-        $query = ContentRubrics::find();
+        $query = ContentRubrics::find()->with('section');
+
+        if(isset(Yii::$app->controller->module->sectionId)){
+            $params['ContentRubricsSearch']['section_id'] = Yii::$app->controller->module->sectionId;
+        }
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -57,6 +61,7 @@ class ContentRubricsSearch extends ContentRubrics
 
         $query->andFilterWhere([
             'id' => $this->id,
+            'section_id' => $this->section_id,
         ]);
 
         $query->andFilterWhere(['like', 'name_en', $this->name_en])
