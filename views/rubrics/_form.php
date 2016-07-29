@@ -26,13 +26,7 @@ use ut8ia\contentmodule\models\ContentSections;
     <?= $form->field($model, 'name_en')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'name_ru')->textInput(['maxlength' => true]) ?>
-    <div class="form-group">
-        <?=
-        $form->field($model, 'section_id', [
-            'template' => '<div class="col-lg-2  small">{label}</div><div class="col-lg-10">{input}</div>',
-            'options' => ['class' => 'inline']])->dropDownList(ContentSections::selector());
-        ?>
-    </div>
+
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>

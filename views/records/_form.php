@@ -38,21 +38,6 @@ $tags = new Tags();
         ?>
 
         <?=
-        $form->field($model, 'slug', [
-            'template' => '<div class="col-lg-5">{input}</div>',
-            'options' => ['class' => 'inline']])->textInput(['maxlength' => true])
-        ?>
-    </div>
-
-    <div class="form-group row">
-        <div class="col-lg-2 small"><?php echo Yii::t('main', 'Rubric'); ?></div>
-        <?=
-        $form->field($model, 'section_id', [
-            'template' => '<div class="col-lg-5">{input}</div>',
-            'options' => ['class' => 'inline']])->dropDownList(ContentSections::selector());
-        ?>
-
-        <?=
         $form->field($model, 'rubric_id', [
             'template' => '<div class="col-lg-5">{input}</div>',
             'options' => ['class' => 'inline']])->dropDownList(ContentRubrics::selector($model->section_id));
