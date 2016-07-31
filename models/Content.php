@@ -48,8 +48,8 @@ class Content extends ActiveRecord
     {
         return [
             [['name', 'text', 'lang_id', 'rubric_id','section_id'], 'required'],
-            [['text', 'slug', 'stick'], 'string'],
-            [['date', 'author_id', 'SystemTags', 'NavTags'], 'safe'],
+            [['text', 'slug' ], 'string'],
+            [['date', 'author_id', 'SystemTags', 'NavTags','stick'], 'safe'],
             [['section_id','lang_id','rubric_id'],'integer'],
             [['name'], 'string', 'max' => 255]
         ];
