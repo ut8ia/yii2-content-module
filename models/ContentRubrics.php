@@ -14,6 +14,7 @@ use Yii;
  * @property integer $section_id
  * @property string $name_en
  * @property string $name_ru
+ * @property string $name_uk
  */
 class ContentRubrics extends ActiveRecord
 {
@@ -34,7 +35,7 @@ class ContentRubrics extends ActiveRecord
         return [
             [['name_en', 'name_ru','section_id'], 'required'],
             ['section_id' ,'integer'],
-            [['name_en', 'name_ru'], 'string', 'max' => 255]
+            [['name_en', 'name_ru', 'name_uk'], 'string', 'max' => 255]
         ];
     }
 
