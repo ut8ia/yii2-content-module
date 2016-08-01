@@ -49,14 +49,20 @@ $tags = new Tags();
         <div class="col-lg-2 small"><?php echo Yii::t('main', 'Rubric'); ?></div>
         <?=
         $form->field($model, 'section_id', [
-            'template' => '<div class="col-lg-5">{input}</div>',
+            'template' => '<div class="col-lg-4">{input}</div>',
             'options' => ['class' => 'inline']])->dropDownList(ContentSections::selector());
         ?>
 
         <?=
         $form->field($model, 'rubric_id', [
-            'template' => '<div class="col-lg-5">{input}</div>',
+            'template' => '<div class="col-lg-4">{input}</div>',
             'options' => ['class' => 'inline']])->dropDownList(ContentRubrics::selector($model->section_id));
+        ?>
+
+        <?=
+        $form->field($model, 'content_type', [
+            'template' => '<div class="col-lg-2">{input}</div>',
+            'options' => ['class' => 'inline']])->dropDownList($model->contentTypes);
         ?>
 
     </div>

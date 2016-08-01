@@ -24,6 +24,7 @@ use common\models\User;
  * @property string $author_id
  * @property string $section_id
  * @property string $stick
+ * @property string $content_type
  *
  */
 class Content extends ActiveRecord
@@ -49,7 +50,7 @@ class Content extends ActiveRecord
         return [
             [['name', 'text', 'lang_id', 'rubric_id','section_id'], 'required'],
             [['text', 'slug' ], 'string'],
-            [['date', 'author_id', 'SystemTags', 'NavTags','stick'], 'safe'],
+            [['date', 'author_id', 'SystemTags', 'NavTags','stick','content_type'], 'safe'],
             [['section_id','lang_id','rubric_id'],'integer'],
             [['name'], 'string', 'max' => 255]
         ];
@@ -86,7 +87,7 @@ class Content extends ActiveRecord
                 'class' => MediafileBehavior::className(),
                 'name' => 'content',
                 'attributes' => [
-                    'thumbnail',
+                    'text',
                 ]
             ]
         ];
@@ -137,7 +138,16 @@ class Content extends ActiveRecord
     }
 
 
-
+    public function getContentTypes(){
+        return [
+            'html'=>'html',
+            'text'=>'text',
+            'javascript'=>'javascript'
+        ];
+    }
+    /**
+     * @return if set section - automatic set section_id to model
+     */
     public function beforeValidate()
     {
         if(isset(Yii::$app->controller->module->sectionId)){
