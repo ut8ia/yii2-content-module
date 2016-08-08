@@ -4,7 +4,7 @@ namespace ut8ia\contentmodule\models;
 
 use Yii;
 use yii\db\ActiveRecord;
-use pendalf89\filemanager\behaviors\MediafileBehavior;
+use ut8ia\filemanager\behaviors\MediafileBehavior;
 use ut8ia\multylang\models\Lang;
 use ut8ia\contentmodule\models\ContentRubrics;
 use ut8ia\contentmodule\models\ContentSections;

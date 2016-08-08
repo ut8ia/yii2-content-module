@@ -3,7 +3,7 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use dosamigos\datetimepicker\DateTimePicker;
-use pendalf89\filemanager\widgets\TinyMCE;
+use ut8ia\filemanager\widgets\TinyMCE;
 use kartik\select2\Select2;
 use ut8ia\multylang\models\Lang;
 use ut8ia\contentmodule\models\ContentRubrics;
