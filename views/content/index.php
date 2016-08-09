@@ -19,8 +19,14 @@ $this->title = Yii::t('app', 'Content');
     <?=
     GridView::widget(['dataProvider' => $dataProvider,
         //    'filterModel' => $searchModel,
-        'columns' => [['class' => 'yii\grid\ActionColumn',
-            'contentOptions' => ['class' => 'small text-right', 'nowrap' => 'nowrap'],],
+        'columns' => [
+            ['class' => 'yii\grid\ActionColumn',
+                'template' => '{update}<br>{delete}<br>{view}',
+                'contentOptions' => [
+                    'class' => 'small text-right',
+                    'nowrap' => 'nowrap'
+                ],
+            ],
             [
                 'contentOptions' => ['class' => 'small text-left'],
 //                'attribute' => '',
@@ -45,7 +51,7 @@ $this->title = Yii::t('app', 'Content');
                 'attribute' => 'Name',
                 'format' => 'html',
                 'value' => function($model) {
-                    return  $model->section->name;
+                    return $model->section->name;
                 },
             ],
             [
@@ -53,7 +59,7 @@ $this->title = Yii::t('app', 'Content');
                 'attribute' => 'Name',
                 'format' => 'html',
                 'value' => function($model) {
-                    return  $model->name;
+                    return $model->name;
                 },
             ],
             [

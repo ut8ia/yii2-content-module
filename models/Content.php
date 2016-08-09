@@ -194,7 +194,7 @@ class Content extends ActiveRecord
     }
 
 
-    public function getDefault()
+    public static function getDefault()
     {
         return Content::findOne(0);
     }
@@ -264,6 +264,9 @@ class Content extends ActiveRecord
             ->andWhere(['=', '`contentmanager_content`.`lang_id`', Lang::getCurrent()->id])
             ->andWhere(['=', '`contentmanager_content`.`section_id`', $section_id])
             ->one();
+        if(!isset($ans->id)){
+            $ans = Content::getDefault();
+        }
         return $ans;
     }
 
