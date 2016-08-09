@@ -71,6 +71,7 @@ class Content extends ActiveRecord
             'author_id' => 'Author',
             'rubric_id' => 'Theme',
             'section_id' => 'Section',
+            'SystemTags' => Yii::t('main','Positioning'),
             'stick' => Yii::t('main', 'stick')
         ];
     }
