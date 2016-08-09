@@ -109,7 +109,7 @@ $tags = new Tags();
     echo $form->field($model, 'SystemTags')->widget(Select2::class, [
         'data' => $tags->getByType(1, 1),
         'language' => 'en',
-        'options' => ['multiple' => true, 'placeholder' => 'System tags like *main* *announce* e.t.c. '],
+        'options' => ['multiple' => true, 'placeholder' => 'tags for locate item on page template'],
         'pluginOptions' => [
             'allowClear' => true
         ],

@@ -17,7 +17,7 @@ class Tags extends ActiveRecord
 
     // tag types
     const TAG_TYPES = [
-        1 => 'system',
+        1 => 'positioning',
         2 => 'navigation',
         3 => 'seo'
     ];

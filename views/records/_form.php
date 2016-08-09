@@ -34,13 +34,15 @@ $tags = new Tags();
         <?=
         $form->field($model, 'name', [
             'template' => '<div class="col-lg-5">{input}</div>',
-            'options' => ['class' => 'inline']])->textInput(['maxlength' => true])
+            'options' => ['class' => 'inline']])
+            ->textInput(['maxlength' => true])
         ?>
 
         <?=
         $form->field($model, 'rubric_id', [
             'template' => '<div class="col-lg-5">{input}</div>',
-            'options' => ['class' => 'inline']])->dropDownList(ContentRubrics::selector($model->section_id));
+            'options' => ['class' => 'inline']])
+            ->dropDownList(ContentRubrics::selector($model->section_id));
         ?>
 
     </div>
