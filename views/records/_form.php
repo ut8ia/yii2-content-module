@@ -55,6 +55,8 @@ $tags = new Tags();
             'menubar' => false,
             'height' => 500,
             'image_dimensions' => false,
+            'apply_source_formatting' => false,
+            'verify_html' => false,
             'plugins' => [
                 'advlist autolink lists link image charmap print preview anchor searchreplace visualblocks code contextmenu table paste insertdatetime',
             ],

@@ -20,13 +20,13 @@ $tags = new Tags();
 
     <?php
     $form = ActiveForm::begin([
-                'enableClientValidation' => false,
-                'options' => ['class' => 'form-horizontal', 'style' => 'padding-left:0px;'],
-                'fieldConfig' => [
-                    'template' => '<div class="col-lg-2 small">{label}</div><div class="col-lg-10">{input}{error}</div>',
-                    'labelOptions' => ['style' => 'font-weight: lighter;'],
-                    'inputOptions' => ['class' => 'form-control'],
-                ],
+        'enableClientValidation' => false,
+        'options' => ['class' => 'form-horizontal', 'style' => 'padding-left:0px;'],
+        'fieldConfig' => [
+            'template' => '<div class="col-lg-2 small">{label}</div><div class="col-lg-10">{input}{error}</div>',
+            'labelOptions' => ['style' => 'font-weight: lighter;'],
+            'inputOptions' => ['class' => 'form-control'],
+        ],
     ]);
     ?>
 
@@ -75,6 +75,9 @@ $tags = new Tags();
             'menubar' => false,
             'height' => 500,
             'image_dimensions' => false,
+            'apply_source_formatting' => false,
+            'verify_html' => false,
+
             'plugins' => [
                 'advlist autolink lists link image charmap print preview anchor searchreplace visualblocks code contextmenu table paste insertdatetime',
             ],
@@ -82,12 +85,13 @@ $tags = new Tags();
         ],
     ]);
 
-    ?>    
+    ?>
 
     <iframe id="form_target" name="form_target" style="display:none">
-    <form id="my_form" action="/upload/" target="form_target" method="post" enctype="multipart/form-data"  style="width:0px;height:0;overflow:hidden">
-        <input name="image" type="file" onchange="$('#my_form').submit();this.value='';">
-    </form>
+        <form id="my_form" action="/upload/" target="form_target" method="post" enctype="multipart/form-data"
+              style="width:0px;height:0;overflow:hidden">
+            <input name="image" type="file" onchange="$('#my_form').submit();this.value='';">
+        </form>
     </iframe>
 
 
@@ -98,7 +102,7 @@ $tags = new Tags();
         'options' => [
             'multiple' => true,
             'placeholder' => 'Tags for navigation and seo'
-            ],
+        ],
         'pluginOptions' => [
             'allowClear' => true
         ],
@@ -142,10 +146,10 @@ $tags = new Tags();
                 echo $model->author->username;
             }
             ?>
-        </div>   
+        </div>
         <div class="col-lg-5">
             <?= $form->field($model, 'stick')->checkbox(); ?>
-        </div>  
+        </div>
 
     </div>
     <div class="form-group">
