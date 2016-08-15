@@ -8,7 +8,7 @@ class ContentHelper
 {
     public static function fetchImages($content)
     {
-        preg_match_all("#<img(.*?)\/?>#", $postContent, $matches);
+        preg_match_all("#<img(.*?)\/?>#", $content, $matches);
         // extract attributes from each image and place in $images array
         $images = [];
         foreach ($matches[1] as $m) {
@@ -21,7 +21,7 @@ class ContentHelper
 //            if ($tempArray['id']=='headImage'){ $headImage=$tempArray['src'];}
 //            if ($tempArray['id']=='newsImage'){ $newsImage=$tempArray['src'];}
 
-            return $images;
+            return $tempArray;
         }
 
     }
