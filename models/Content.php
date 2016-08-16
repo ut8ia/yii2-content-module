@@ -12,6 +12,8 @@ use ut8ia\contentmodule\models\Tags;
 use ut8ia\contentmodule\models\TagsLink;
 use common\models\User;
 
+use ut8ia\contentmodule\helpers\ContentHelper;
+
 /**
  * This is the model class for table "content".
  *
@@ -71,7 +73,7 @@ class Content extends ActiveRecord
             'author_id' => 'Author',
             'rubric_id' => 'Theme',
             'section_id' => 'Section',
-            'SystemTags' => Yii::t('main','Positioning'),
+            'SystemTags' => Yii::t('main', 'Positioning'),
             'stick' => Yii::t('main', 'stick')
         ];
     }
@@ -234,6 +236,30 @@ class Content extends ActiveRecord
     }
 
 
+    public function imagesBySection($section_id, $limit = null)
+    {
+        $ans = Content::find()
+            ->where(['=', 'section_id', $section_id])
+            ->andWhere(['=', '`contentmanager_content`.`lang_id`', Lang::getCurrent()->id])
+            ->orderBy('RAND() ');
+        $ans = ((int)$limit) ? $ans->limit($limit) : $ans;
+        $items = $ans->all();
+
+        if (!empty($items)) {
+            $collection = [];
+            $c = 0;
+            foreach ($items as $item) {
+                $images = ContentHelper::fetchImages($item->text);
+                $collection[$c]['src'] = $images['main']['src'];
+                $collection[$c]['slug'] = $item['slug'];
+                $c++;
+                if($c==$limit){break;}
+            }
+        }
+        return $collection;
+    }
+
+
     /**
      * @param $section_id
      * @param $rubric_id
@@ -265,7 +291,7 @@ class Content extends ActiveRecord
             ->andWhere(['=', '`contentmanager_content`.`lang_id`', Lang::getCurrent()->id])
             ->andWhere(['=', '`contentmanager_content`.`section_id`', $section_id])
             ->one();
-        if(!isset($ans->id)){
+        if (!isset($ans->id)) {
             $ans = Content::getDefault();
         }
         return $ans;

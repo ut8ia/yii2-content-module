@@ -53,4 +53,9 @@ class ContentHelper
         return $out;
     }
 
+
+    public static function cleanImages($content){
+        return preg_replace("/<img[^>]+\>/i", "", $content);
+    }
+
 }
