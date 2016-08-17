@@ -235,6 +235,23 @@ class Content extends ActiveRecord
         return $ans;
     }
 
+    /**
+     * @param $section_id
+     * @param null $limit
+     * @return $this
+     */
+    public function bySection($section_id, $limit = null)
+    {
+        $ans = Content::find()
+            ->where(['=', 'section_id', $section_id])
+            ->andWhere(['=', '`contentmanager_content`.`lang_id`', Lang::getCurrent()->id])
+            ->orderBy('date DESC');
+        $ans = ((int)$limit) ? $ans->limit($limit) : $ans;
+        $ans = $ans->all();
+        return $ans;
+
+    }
+
 
     public function imagesBySection($section_id, $limit = null)
     {
@@ -253,7 +270,9 @@ class Content extends ActiveRecord
                 $collection[$c]['src'] = $images['main']['src'];
                 $collection[$c]['slug'] = $item['slug'];
                 $c++;
-                if($c==$limit){break;}
+                if ($c == $limit) {
+                    break;
+                }
             }
         }
         return $collection;

@@ -1,5 +1,4 @@
 
-
     // handler for "more" click
 
 
@@ -23,8 +22,6 @@
 // handler for "less" click
 
     $('body').on('click','.less-click',function(){
-
-        console.log(11);
         var destinationClass = $(this).data('destination');
         var sourceClass = $(this).data('source');
         var duration = $(this).data('duration');
