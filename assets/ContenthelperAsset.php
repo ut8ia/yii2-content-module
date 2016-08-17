@@ -15,5 +15,6 @@ class ContenthelperAsset extends AssetBundle
     ];
     public $depends = [
         'yii\bootstrap\BootstrapAsset',
+        'yii\web\JqueryAsset'
     ];
 }
