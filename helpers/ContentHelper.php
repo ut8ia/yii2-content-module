@@ -12,7 +12,7 @@ class ContentHelper
      * @param string $defaultSrc
      * @return array
      */
-    public static function fetchImages($content, $mainId = null ,$defaultSrc = null)
+    public static function fetchImages($content, $mainId = null, $defaultSrc = null)
     {
         $mainId = ($mainId) ? $mainId : 'main';
         $images = [];
@@ -43,7 +43,7 @@ class ContentHelper
             if (!empty($images[1])) {
                 $main = $images[1];
             } else {
-                $main['src'] = ($defaultSrc)?$defaultSrc: 'http://placehold.it/400x250';
+                $main['src'] = ($defaultSrc) ? $defaultSrc : 'http://placehold.it/400x250';
                 $main['alt'] = 'no image here';
             }
         }
@@ -54,8 +54,18 @@ class ContentHelper
     }
 
 
-    public static function cleanImages($content){
+    public static function cleanImages($content)
+    {
         return preg_replace("/<img[^>]+\>/i", "", $content);
     }
 
+    public static function parseMore($content, $tag = null)
+    {
+        $tag = ($tag) ? $tag : '<!--more-->';
+        $out = explode($tag, $content);
+        $ans['main'] = $out[0];
+        $ans['more'] = ($out[1]) ? $out[1] : '';
+        return $ans;
+
+    }
 }
