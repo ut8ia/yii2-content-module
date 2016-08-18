@@ -253,7 +253,7 @@ class Content extends ActiveRecord
     }
 
 
-    public function imagesBySection($section_id, $limit = null)
+    public function imagesBySection($section_id, $limit = null, $mainOnly = null)
     {
         $ans = Content::find()
             ->where(['=', 'section_id', $section_id])
@@ -267,8 +267,22 @@ class Content extends ActiveRecord
             $c = 0;
             foreach ($items as $item) {
                 $images = ContentHelper::fetchImages($item->text);
-                $collection[$c]['src'] = $images['main']['src'];
-                $collection[$c]['slug'] = $item['slug'];
+                //skip if content has no images
+                if (!$images['count']) {
+                    continue;
+                }
+
+                // fetch image - main or random
+                if($mainOnly) {
+                    $collection[$c]['src'] = $images['main']['src'];
+                    $collection[$c]['slug'] = $item['slug'];
+                }
+                else{
+                    $imageNum = (int)rand(0,$images['count']-1);
+                    $collection[$c]['src'] = $images['images'][$imageNum]['src'];
+                    $collection[$c]['slug'] = $item['slug'];
+                }
+
                 $c++;
                 if ($c == $limit) {
                     break;

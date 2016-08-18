@@ -33,15 +33,15 @@ class ContentHelper
                     $main = $tempArray;
                 }
             }
-            $c++;
             $images[$c] = $tempArray;
+            $c++;
         }
 
         // fill default main image
         if (empty($main)) {
             // by first
-            if (!empty($images[1])) {
-                $main = $images[1];
+            if (!empty($images[0])) {
+                $main = $images[0];
             } else {
                 $main['src'] = ($defaultSrc) ? $defaultSrc : 'http://placehold.it/400x250';
                 $main['alt'] = 'no image here';

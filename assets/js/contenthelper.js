@@ -1,9 +1,6 @@
-
-    // handler for "more" click
-
+ // handler for "more" click
 
     $('.more-click').click(function () {
-
         var destinationClass = $(this).data('destination');
         var sourceClass = $(this).data('source');
         var duration = $(this).data('duration');
@@ -17,7 +14,6 @@
         $('.' + destinationClass).html(content);
         $('.' + destinationClass).show(1000).fadeIn(2000);
 
-
     });
 // handler for "less" click
 
@@ -27,7 +23,6 @@
         var duration = $(this).data('duration');
         var selfhide = $(this).data('selfhide');
         var showbuttonid = $(this).data('showbuttonid');
-
         var content ='';
 
         if (selfhide) {
