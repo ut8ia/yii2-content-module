@@ -64,7 +64,11 @@ class ContentHelper
         $tag = ($tag) ? $tag : '<!--more-->';
         $out = explode($tag, $content);
         $ans['main'] = $out[0];
-        $ans['more'] = ($out[1]) ? $out[1] : '';
+        if (isset($out[1])) {
+            $ans['more'] = ($out[1]) ? $out[1] : '';
+        } else {
+            $ans['more'] = '';
+        }
         return $ans;
 
     }
