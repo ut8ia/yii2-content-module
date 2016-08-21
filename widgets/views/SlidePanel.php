@@ -1,6 +1,6 @@
 <div class="panel <?= $class; ?>">
     <div class="panel-heading">
-        <h4 class="panel-title">
+        <h4 class="panel-title text-right">
             <a class="accordion-toggle" data-toggle="collapse" data-parent="#<?= $parentId; ?>"
                href="#collapse<?= $parentId.$c; ?>"><?= $item['name']; ?></a>
         </h4>
