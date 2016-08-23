@@ -16,6 +16,9 @@
     }
   },
   "require": {
-    "php": ">5.3.4"
+    "php": ">5.3.4",
+    "2amigos/yii2-transliterator-helper": "*",
+    "kartik-v/yii2-widget-select2": "@dev",
+    "conquer/codemirror": "*"
   }
 }

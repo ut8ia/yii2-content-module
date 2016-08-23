@@ -82,7 +82,7 @@ class Content extends ActiveRecord
     {
         return [
             'slug' => [
-                'class' => 'common\behaviors\Slug',
+                'class' => 'ut8ia\behaviors\Slug',
                 'in_attribute' => 'name',
                 'out_attribute' => 'slug',
                 'translit' => true
