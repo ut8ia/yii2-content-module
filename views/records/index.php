@@ -55,8 +55,8 @@ $this->title = Yii::t('app', 'Content');
 
                     if (isset($model->rubric)) {
                         $rubric = $model->rubric->name_ru;
+                        return $rubric;
                     }
-                    return $rubric;
                 },
             ],
             [
