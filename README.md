@@ -32,26 +32,65 @@ add into composer.json
  
  ** recomended **
  - http://github.com/ut8ia/yii2-adminmenu
- section for config menu , group 1 - for exemple , look adminmenu config
+ section for config menu - for exemple , look adminmenu config
  ~~~
  
-                 1 => [
-                     'name' => 'Слайдеры',
-                     'items' => [
-                         1 => [
-                             'module'=>'sliders',
-                             'controller' => 'sliders',
-                             'url' => 'index',
-                             'name' => 'Слайдеры'],
-                         2 => [
-                             'module'=>'sliders',
-                             'controller' => 'slides',
-                             'url' => 'index',
-                             'name' => 'Слайды'],
-                     ]
-                 ],
+                 'adminmenu' => [
+                            'class' => ut8ia\adminmenu\Adminmenu::class,
+                            'items' => [
+                                0 => [
+                                    'name' => 'Весь контент',
+                                    'items' => [
+                                        1 => [
+                                            'module' => 'content',
+                                            'controller' => 'content',
+                                            'url' => 'index',
+                                            'name' => 'Контент'],
+                                        2 => [
+                                            'module' => 'content',
+                                            'controller' => 'tags',
+                                            'name' => 'Теги',
+                                            'url' => 'index'],
+                                        3 => [
+                                            'module' => 'content',
+                                            'controller' => 'contentrubrics',
+                                            'name' => 'Рубріки',
+                                            'url' => 'index'],
+                                        4 => [
+                                            'module' => 'content',
+                                            'controller' => 'contentsections',
+                                            'name' => 'Секції',
+                                            'url' => 'index']
+                                    ]
+                                ],
+                            ]
  ~~~
  
+ 
+ ** config sections **
+ add sections to db in admin interface and configure it into modules section 
+ each section as a new -= virtual =- content module .
+ ~~~
+     'modules' => [
+         
+         'content' => [
+             'class' => 'ut8ia\contentmodule\ContentModule'
+         ]
+         ,
+         'interface_parts' => [
+             'class' => 'ut8ia\contentmodule\ContentModule',
+             'sectionId' => 1
+         ],
+         'articles' => [
+             'class' => 'ut8ia\contentmodule\ContentModule',
+             'sectionId' => 2
+         ],
+         'events' => [
+             'class' => 'ut8ia\contentmodule\ContentModule',
+             'sectionId' => 3
+         ],
+ ]
+ ~~~
  
  ** usage in views **
 
@@ -88,7 +127,9 @@ add into composer.json
      $images = ContentHelper::fetchImages($content);
      $cleanContent = ContentHelper::cleanImages($content);
      $more = ContentHelper::parseMore($cleanContent);
- 
+
+// see another stuff in helper and main content class
  ?>
+
 
  ~~~
