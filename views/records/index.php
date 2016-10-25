@@ -16,85 +16,99 @@ $this->title = Yii::t('app', 'Content');
         <?= Html::a(Yii::t('app', 'Create Content'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
-    <?=
-    GridView::widget(['dataProvider' => $dataProvider,
-        //    'filterModel' => $searchModel,
-        'columns' => [['class' => 'yii\grid\ActionColumn',
-            'contentOptions' => ['class' => 'small text-right', 'nowrap' => 'nowrap'],],
-            [
-                'contentOptions' => ['class' => 'small text-left'],
-                'format' => 'html',
-                'value' => function($model) {
-                    switch ($model->language->url) {
-                        case 'en':
-                            $class = "label-info";
+    <?php
+
+
+    $columns[] = [
+        'class' => 'yii\grid\ActionColumn',
+        'contentOptions' => ['class' => 'small text-right', 'nowrap' => 'nowrap']
+    ];
+
+    if (Yii::$app->controller->module->multilanguage) {
+        $columns[] = [
+            'contentOptions' => [
+                'class' => 'small text-left'
+            ],
+            'format' => 'html',
+            'value' => function($model) {
+                switch ($model->language->url) {
+                    case 'en':
+                        $class = "label-info";
+                        break;
+                    case 'ru':
+                        $class = "label-danger";
+                        break;
+                    default :
+                        $class = "label-default";
+                }
+                $lng = "<span class='label " . $class . "'>" . strtoupper($model->language->url) . "</span>";
+                return $lng;
+            },
+        ];
+    }
+
+    $columns[] = [
+        'contentOptions' => ['class' => 'col-sm-4 small text-left'],
+        'attribute' => 'Name',
+        'format' => 'html',
+        'value' => function($model) {
+            return $model->name;
+        },
+    ];
+
+    $columns[] = ['contentOptions' => ['class' => 'col-sm-2 small text-left'],
+        'attribute' => 'Rubric',
+        'format' => 'html',
+        'value' => function($model) {
+
+            if (isset($model->rubric)) {
+                $rubric = $model->rubric->name_ru;
+                return $rubric;
+            }
+        },
+    ];
+
+    $columns[] = [
+        'contentOptions' => ['class' => 'col-sm-4 text-left'],
+        'attribute' => 'Tags',
+        'format' => 'html',
+        'value' => function($model) {
+            if (isset($model->tags)) {
+                $tags = ArrayHelper::toArray($model->tags);
+                $out = "";
+                foreach ($tags as $ind => $val) {
+                    switch ($val['type']) {
+                        case 1:
+                            $class = "label-warning";
                             break;
-                        case 'ru':
-                            $class = "label-danger";
+                        case 2:
+                            $class = "label-success";
                             break;
                         default :
                             $class = "label-default";
                     }
-                    $lng = "<span class='label " . $class . "'>" . strtoupper($model->language->url) . "</span>";
-                    return $lng;
-                },
-            ],
-            [
-                'contentOptions' => ['class' => 'col-sm-4 small text-left'],
-                'attribute' => 'Name',
-                'format' => 'html',
-                'value' => function($model) {
-                    return  $model->name;
-                },
-            ],
-            [
-                'contentOptions' => ['class' => 'col-sm-2 small text-left'],
-                'attribute' => 'Rubric',
-                'format' => 'html',
-                'value' => function($model) {
 
-                    if (isset($model->rubric)) {
-                        $rubric = $model->rubric->name_ru;
-                        return $rubric;
-                    }
-                },
-            ],
-            [
-                'contentOptions' => ['class' => 'col-sm-4 text-left'],
-                'attribute' => 'Tags',
-                'format' => 'html',
-                'value' => function($model) {
-                    if (isset($model->tags)) {
-                        $tags = ArrayHelper::toArray($model->tags);
-                        $out = "";
-                        foreach ($tags as $ind => $val) {
-                            switch ($val['type']) {
-                                case 1:
-                                    $class = "label-warning";
-                                    break;
-                                case 2:
-                                    $class = "label-success";
-                                    break;
-                                default :
-                                    $class = "label-default";
-                            }
+                    $out .= " <span class='label " . $class . "' style ='padding-top:1px;'>" . $val['name'] . "</span>";
+                }
 
-                            $out .= " <span class='label " . $class . "' style ='padding-top:1px;'>" . $val['name'] . "</span>";
-                        }
+                return $out;
+            }
+        },
+    ];
 
-                        return $out;
-                    }
-                },
-            ],
-            [
-                'contentOptions' => ['class' => 'col-sm-2 small text-center'],
-                'attribute' => 'Date',
-                'format' => 'html',
-                'value' => function($model) {
-                    return $model->date;
-                },
-            ],
-        ],
+    $columns[] = [
+        'contentOptions' => ['class' => 'col-sm-2 small text-center'],
+        'attribute' => 'Date',
+        'format' => 'html',
+        'value' => function($model) {
+            return $model->date;
+        },
+    ];
+
+
+    echo GridView::widget(['dataProvider' => $dataProvider,
+        //    'filterModel' => $searchModel,
+        'columns' => $columns
     ]);
     ?>
 

@@ -19,13 +19,13 @@ $tags = new Tags();
 
     <?php
     $form = ActiveForm::begin([
-                'enableClientValidation' => false,
-                'options' => ['class' => 'form-horizontal', 'style' => 'padding-left:0px;'],
-                'fieldConfig' => [
-                    'template' => '<div class="col-lg-2 small">{label}</div><div class="col-lg-10">{input}{error}</div>',
-                    'labelOptions' => ['style' => 'font-weight: lighter;'],
-                    'inputOptions' => ['class' => 'form-control'],
-                ],
+        'enableClientValidation' => false,
+        'options' => ['class' => 'form-horizontal', 'style' => 'padding-left:0px;'],
+        'fieldConfig' => [
+            'template' => '<div class="col-lg-2 small">{label}</div><div class="col-lg-10">{input}{error}</div>',
+            'labelOptions' => ['style' => 'font-weight: lighter;'],
+            'inputOptions' => ['class' => 'form-control'],
+        ],
     ]);
     ?>
 
@@ -64,12 +64,13 @@ $tags = new Tags();
         ],
     ]);
 
-    ?>    
+    ?>
 
     <iframe id="form_target" name="form_target" style="display:none">
-    <form id="my_form" action="/upload/" target="form_target" method="post" enctype="multipart/form-data"  style="width:0px;height:0;overflow:hidden">
-        <input name="image" type="file" onchange="$('#my_form').submit();this.value='';">
-    </form>
+        <form id="my_form" action="/upload/" target="form_target" method="post" enctype="multipart/form-data"
+              style="width:0px;height:0;overflow:hidden">
+            <input name="image" type="file" onchange="$('#my_form').submit();this.value='';">
+        </form>
     </iframe>
 
 
@@ -80,7 +81,7 @@ $tags = new Tags();
         'options' => [
             'multiple' => true,
             'placeholder' => 'Tags for navigation and seo'
-            ],
+        ],
         'pluginOptions' => [
             'allowClear' => true
         ],
@@ -109,10 +110,13 @@ $tags = new Tags();
         ?>
 
 
-        <?=
-        $form->field($model, 'lang_id', [
-            'template' => '<div class="col-lg-5">{input}</div>',
-            'options' => ['class' => 'inline']])->dropDownList(Lang::selector());
+        <?php
+
+        if (Yii::$app->controller->module->multilanguage) {
+            echo $form->field($model, 'lang_id', [
+                'template' => '<div class="col-lg-5">{input}</div>',
+                'options' => ['class' => 'inline']])->dropDownList(Lang::selector());
+        }
         ?>
     </div>
 
@@ -124,10 +128,10 @@ $tags = new Tags();
                 echo $model->author->username;
             }
             ?>
-        </div>   
+        </div>
         <div class="col-lg-5">
             <?= $form->field($model, 'stick')->checkbox(); ?>
-        </div>  
+        </div>
 
     </div>
     <div class="form-group">

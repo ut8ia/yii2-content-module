@@ -7,6 +7,7 @@ use \yii\base\Module;
 class ContentModule extends Module {
 
     public $sectionId;
+    public $multilanguage;
 
     public function init()
     {
