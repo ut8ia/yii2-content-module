@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\helpers\ArrayHelper;
+use ut8ia\multylang\models\Lang;
 
 /* @var $this yii\web\View */
 /* @var $searchModel ut8ia\contentmodule\models\ContentSearch */
@@ -75,7 +76,9 @@ $this->title = Yii::t('app', 'Content');
                 'value' => function($model) {
 
                     if (isset($model->rubric)) {
-                        $rubric = $model->rubric->name_ru;
+                        $name = Lang::getCurrent()->url;
+                        $property_name = 'name_' . $name;
+                        $rubric = $model->rubric->$property_name;;
                     }
                     return $rubric;
                 },

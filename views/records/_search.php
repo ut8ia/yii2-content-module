@@ -17,15 +17,17 @@ use ut8ia\multylang\models\Lang;
         'method' => 'get',
     ]); ?>
 
-    <?=
-    $form->field($model, 'lang_id', [
-        'template' => '<div class="col-lg-5">{input}</div>',
-        'options' => ['class' => 'inline']])->dropDownList(Lang::selector([''=>'все языки']));
+    <?php
+    if (Yii::$app->controller->module->multilanguage) {
+        echo $form->field($model, 'lang_id', [
+            'template' => '<div class="col-lg-5">{input}</div>',
+            'options' => ['class' => 'inline']])->dropDownList(Lang::selector(['' => 'все языки']));
+    }
     ?>
     <?=
     $form->field($model, 'rubric_id', [
         'template' => '<div class="col-lg-5">{input}</div>',
-        'options' => ['class' => 'inline']])->dropDownList(ContentRubrics::selector($model->section_id,[''=>'все рубрики']));
+        'options' => ['class' => 'inline']])->dropDownList(ContentRubrics::selector($model->section_id, ['' => 'все рубрики']));
     ?>
     <div class="col-lg-2">
         <?= Html::submitButton(Yii::t('app', 'Search'), ['class' => 'btn btn-primary']) ?>
