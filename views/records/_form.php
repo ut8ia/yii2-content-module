@@ -75,28 +75,37 @@ $tags = new Tags();
 
 
     <?php
-    echo $form->field($model, 'NavTags')->widget(Select2::class, [
-        'data' => $tags->getByType(2, 1),
-        'language' => 'en',
-        'options' => [
-            'multiple' => true,
-            'placeholder' => 'Tags for navigation and seo'
-        ],
-        'pluginOptions' => [
-            'allowClear' => true
-        ],
-    ]);
+
+    if (Yii::$app->controller->module->navigationTags) {
+
+        echo $form->field($model, 'NavTags')->widget(Select2::class, [
+            'data' => $tags->getByType(2, 1),
+            'language' => 'en',
+            'options' => [
+                'multiple' => true,
+                'placeholder' => 'Tags for navigation'
+            ],
+            'pluginOptions' => [
+                'allowClear' => true
+            ],
+        ]);
+    }
+
     ?>
 
     <?php
-    echo $form->field($model, 'SystemTags')->widget(Select2::class, [
-        'data' => $tags->getByType(1, 1),
-        'language' => 'en',
-        'options' => ['multiple' => true, 'placeholder' => 'System tags like *main* *announce* e.t.c. '],
-        'pluginOptions' => [
-            'allowClear' => true
-        ],
-    ]);
+
+    if (Yii::$app->controller->module->positioning) {
+
+        echo $form->field($model, 'SystemTags')->widget(Select2::class, [
+            'data' => $tags->getByType(1, 1),
+            'language' => 'en',
+            'options' => ['multiple' => true, 'placeholder' => 'System tags like *main* *announce* e.t.c. '],
+            'pluginOptions' => [
+                'allowClear' => true
+            ],
+        ]);
+    }
     ?>
 
     <div class="form-group row">
@@ -130,7 +139,11 @@ $tags = new Tags();
             ?>
         </div>
         <div class="col-lg-5">
-            <?= $form->field($model, 'stick')->checkbox(); ?>
+            <?php
+            if (Yii::$app->controller->module->stick) {
+                $form->field($model, 'stick')->checkbox();
+            }
+            ?>
         </div>
 
     </div>

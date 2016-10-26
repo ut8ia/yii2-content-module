@@ -32,17 +32,23 @@ $this->title = Yii::t('app', 'Content');
 //                'attribute' => '',
                 'format' => 'html',
                 'value' => function($model) {
-                    switch ($model->language->url) {
-                        case 'en':
-                            $class = "label-info";
-                            break;
-                        case 'ru':
-                            $class = "label-danger";
-                            break;
-                        default :
-                            $class = "label-default";
+                    if (isset($model->language->url)) {
+                        switch ($model->language->url) {
+                            case 'en':
+                                $class = "label-info";
+                                break;
+                            case 'ru':
+                                $class = "label-danger";
+                                break;
+                            default :
+                                $class = "label-default";
+                        }
+                        $msg = strtoupper($model->language->url);
+                    } else {
+                        $class = "label-default";
+                        $msg = "not set";
                     }
-                    $lng = "<span class='label " . $class . "'>" . strtoupper($model->language->url) . "</span>";
+                    $lng = "<span class='label " . $class . "'>" . $msg . "</span>";
                     return $lng;
                 },
             ],

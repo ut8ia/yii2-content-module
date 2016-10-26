@@ -18,7 +18,6 @@ $this->title = Yii::t('app', 'Content');
 
     <?php
 
-
     $columns[] = [
         'class' => 'yii\grid\ActionColumn',
         'contentOptions' => ['class' => 'small text-right', 'nowrap' => 'nowrap']

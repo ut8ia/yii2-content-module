@@ -4,10 +4,14 @@ namespace ut8ia\contentmodule;
 
 use \yii\base\Module;
 
-class ContentModule extends Module {
+class ContentModule extends Module
+{
 
     public $sectionId;
     public $multilanguage;
+    public $positioning;
+    public $stick;
+    public $navigationTags;
 
     public function init()
     {
@@ -16,7 +20,6 @@ class ContentModule extends Module {
 
 
 }
-
 
 
 ?>
