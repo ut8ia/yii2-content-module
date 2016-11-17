@@ -1,5 +1,15 @@
-# yii2-slider-module
-contnet management functionality 
+# yii2-content-module
+Content management functionality 
+You can easy manage your content.
+You can easy display content depends on :
+  - section
+  - rubric
+  - navigation tag
+  - positioning tag ( 'header slogan' - for example )
+  - id
+  - slug
+  
+Also you can use helpers and widgets.
 
 **installing **
 add into composer.json
@@ -16,7 +26,7 @@ add into composer.json
  **configuration  **
  add into 'modules' section in your config file 
  
- ~~~
+ ~~~php
      'modules' => [
          'content' =>[
              'class' => 'ut8ia\contentmodule\ContnentModule'
@@ -33,7 +43,7 @@ add into composer.json
  ** recomended **
  - http://github.com/ut8ia/yii2-adminmenu
  section for config menu - for exemple , look adminmenu config
- ~~~
+ ~~~php
  
                  'adminmenu' => [
                             'class' => ut8ia\adminmenu\Adminmenu::class,
@@ -70,7 +80,7 @@ add into composer.json
  ** config sections **
  add sections to db in admin interface and configure it into modules section 
  each section as a new -= virtual =- content module .
- ~~~
+ ~~~php
      'modules' => [
          
          'content' => [
@@ -79,7 +89,11 @@ add into composer.json
          ,
          'interface_parts' => [
              'class' => 'ut8ia\contentmodule\ContentModule',
-             'sectionId' => 1
+             'sectionId' => 1,
+             'positioning' => true, // show positioning tags input
+             'navigationTags' => true, // show navigation tags input
+             'stick' => true, // show sticky checkob in form
+             'multilanguage' =>true // show multylanguiage selector
          ],
          'articles' => [
              'class' => 'ut8ia\contentmodule\ContentModule',
@@ -94,7 +108,7 @@ add into composer.json
  
  ** usage in views **
 
- ~~~
+ ~~~php
  
  <?php
  
@@ -133,3 +147,104 @@ add into composer.json
 
 
  ~~~
+
+for example fron-end controller for display "events" with :
+ - slug on single event 
+ - index with pagination
+
+~~~php
+<?php
+
+namespace frontend\controllers;
+
+use Yii;
+use yii\web\Controller;
+use yii\filters\VerbFilter;
+use ut8ia\contentmodule\models\Content;
+use yii\data\Pagination;
+use ut8ia\multylang\models\Lang;
+
+
+class EventsController extends Controller
+{
+
+    /**
+     * @inheritdoc
+     */
+    public function behaviors()
+    {
+        return [
+            'verbs' => [
+                'class' => VerbFilter::class,
+                'actions' => [
+                    'logout' => ['post'],
+                ],
+            ],
+        ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function actions()
+    {
+        return [
+            'error' => [
+                'class' => 'yii\web\ErrorAction',
+            ],
+        ];
+    }
+
+    /**
+     * Displays homepage.
+     *
+     * @return mixed
+     */
+    public function actionIndex()
+    {
+
+        $query = Content::find()
+            ->where(['=', 'section_id', 8])
+            ->andWhere(['=', '`contentmanager_content`.`lang_id`', Lang::getCurrent()->id])
+            ->orderBy('date DESC');
+
+        $countQuery = clone $query;
+        $pages = new Pagination(['totalCount' => $countQuery->count(), 'pageSize' => 3]);
+        $models = $query->offset($pages->offset)
+            ->limit($pages->limit)
+            ->all();
+
+        return $this->render('index', [
+            'models' => $models,
+            'pages' => $pages,
+        ]);
+        return $this->render('index');
+    }
+
+    /**
+     * Displays a single Status model.
+     * @param string $slug
+     * @return mixed
+     */
+    public function actionSlug($slug)
+    {
+        $model = Content::find()->where(['slug' => $slug])->one();
+        if (!is_null($model)) {
+
+            $latestPosts = Content::find()
+                ->where(['section_id' => $model->section_id])
+                ->orderBy('date DESC')
+                ->all();
+
+            return $this->render('single', [
+                'model' => $model,
+                'latestPosts' => $latestPosts
+            ]);
+        } else {
+            return $this->redirect('/index');
+        }
+    }
+
+}
+
+~~~
