@@ -23,7 +23,8 @@ class m161025_094441_init_functionality extends Migration
             'author_id' => $this->integer(11)->notNull(),
             'section_id' => $this->integer(4)->notNull(),
             'stick' => $this->integer(1)->defaultValue(null),
-            'content_type' => "enum('text','html','javascript') NOT NULL"
+            'content_type' => "enum('text','html','javascript') NOT NULL",
+            'display_format' => $this->string(32)->null()
         ], $tableOptions);
 
 

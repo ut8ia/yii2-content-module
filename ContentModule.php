@@ -12,6 +12,8 @@ class ContentModule extends Module
     public $positioning;
     public $stick;
     public $navigationTags;
+    public $display_format;
+    public $display_formats;
 
     public function init()
     {

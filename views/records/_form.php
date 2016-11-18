@@ -129,6 +129,24 @@ $tags = new Tags();
         ?>
     </div>
 
+    <?php
+    if (Yii::$app->controller->module->display_format) {
+
+    ?>
+    <div class="form-group row">
+        <div class="col-lg-2 small text-left"><?= Yii::t('main', 'Display format'); ?></div>
+            <?php
+            echo $form->field($model, 'display_format', [
+                'template' => '<div class="col-lg-5">{input}</div>',
+                'options' => ['class' => 'inline']])
+                ->dropDownList(Yii::$app->controller->module->display_formats);
+            ?>
+    </div>
+    <?php
+    };
+    ?>
+
+
     <div class="row">
         <div class="col-lg-2 small text-left"><?= Yii::t('main', 'Author'); ?></div>
         <div class="col-lg-5">
@@ -145,8 +163,10 @@ $tags = new Tags();
             }
             ?>
         </div>
-
     </div>
+
+
+
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>

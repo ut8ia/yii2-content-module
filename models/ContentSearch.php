@@ -41,7 +41,9 @@ class ContentSearch extends Content
      */
     public function search($params)
     {
-        $query = Content::find()->orderBy(['id'=>SORT_DESC])->with('section');
+        $query = Content::find()
+            ->orderBy(['id'=>SORT_DESC])
+            ->with('section','rubric','author');
 
         if(isset(Yii::$app->controller->module->sectionId)){
             $params['ContentSearch']['section_id'] = Yii::$app->controller->module->sectionId;

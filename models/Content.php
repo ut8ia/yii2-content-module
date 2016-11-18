@@ -28,7 +28,7 @@ use ut8ia\contentmodule\helpers\ContentHelper;
  * @property string $section_id
  * @property string $stick
  * @property string $content_type
- *
+ * @property string $display_format
  */
 class Content extends ActiveRecord
 {
@@ -55,7 +55,8 @@ class Content extends ActiveRecord
             [['text', 'slug'], 'string'],
             [['date', 'author_id', 'SystemTags', 'NavTags', 'stick', 'content_type'], 'safe'],
             [['section_id', 'lang_id', 'rubric_id'], 'integer'],
-            [['name'], 'string', 'max' => 255]
+            [['name'], 'string', 'max' => 255],
+            [['display_format'], 'string', 'max' => 32],
         ];
     }
 
@@ -74,7 +75,8 @@ class Content extends ActiveRecord
             'rubric_id' => 'Theme',
             'section_id' => 'Section',
             'SystemTags' => Yii::t('main', 'Positioning'),
-            'stick' => Yii::t('main', 'stick')
+            'stick' => Yii::t('main', 'it is sticky'),
+            'display_format'=> Yii::t('main', 'Display format'),
         ];
     }
 

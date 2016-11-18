@@ -36,6 +36,7 @@ add into composer.json
  
  
  ** requirements **
+ - common\models\User class
  - http://github.com/ut8ia/yii2-filemanager
  - http://github.com/ut8ia/yii2-multylang
  
@@ -79,7 +80,11 @@ add into composer.json
  
  ** config sections **
  add sections to db in admin interface and configure it into modules section 
- each section as a new -= virtual =- content module .
+ each section as a new -= virtual =- content module for each content section that you need.
+ For example : content of static site interface , news section , articles .
+ Also you can separately config admin form for each section - enable or disable futures.
+ Each section has their personal rubricator .
+ You can specify layout of your admin interface via 'layoutPath'.
  ~~~php
      'modules' => [
          
@@ -94,10 +99,16 @@ add into composer.json
              'navigationTags' => true, // show navigation tags input
              'stick' => true, // show sticky checkob in form
              'multilanguage' =>true // show multylanguiage selector
+             'display_format' => true // enable format dropdown in form 
+             'display_formats' =>[  // configure possible values
+               'simple'=>'simple format', // you can switch your rendering 
+               'full'=>'display this content in full template' // depends on this values             
+                ]
          ],
          'articles' => [
              'class' => 'ut8ia\contentmodule\ContentModule',
-             'sectionId' => 2
+             'sectionId' => 2,
+             'layoutPath' => '@frontend/views/layouts',
          ],
          'events' => [
              'class' => 'ut8ia\contentmodule\ContentModule',
