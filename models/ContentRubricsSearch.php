@@ -19,7 +19,7 @@ class ContentRubricsSearch extends ContentRubrics
     {
         return [
             [['id','section_id'], 'integer'],
-            [['name_en', 'name_ru'], 'safe'],
+            [['name'], 'safe'],
         ];
     }
 
@@ -64,8 +64,7 @@ class ContentRubricsSearch extends ContentRubrics
             'section_id' => $this->section_id,
         ]);
 
-        $query->andFilterWhere(['like', 'name_en', $this->name_en])
-            ->andFilterWhere(['like', 'name_ru', $this->name_ru]);
+        $query->andFilterWhere(['like', 'name', $this->name]);
 
         return $dataProvider;
     }

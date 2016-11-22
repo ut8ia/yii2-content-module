@@ -35,10 +35,7 @@ class m161025_094441_init_functionality extends Migration
             'id' => $this->integer(11)->notNull()->primaryKey(),
             'section_id' => $this->integer(11)->notNull(),
             'slug' => $this->string(255)->notNull(),
-            'name' => $this->string(255)->notNull(),
-            'name_en' => $this->string(255),
-            'name_uk' => $this->string(255),
-            'name_ru' => $this->string(255),
+            'name' => $this->string(255)->notNull()
         ], $tableOptions);
         $this->addPrimaryKey('contentmanager_rubrics_pk','contentmanager_rubrics','id');
         $this->alterColumn('contentmanager_rubrics', 'id', $this->integer(11).' NOT NULL AUTO_INCREMENT');

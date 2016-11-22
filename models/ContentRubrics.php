@@ -14,9 +14,6 @@ use Yii;
  * @property integer $section_id
  * @property string $slug
  * @property string name
- * @property string $name_en
- * @property string $name_ru
- * @property string $name_uk
  */
 class ContentRubrics extends ActiveRecord
 {
@@ -35,9 +32,9 @@ class ContentRubrics extends ActiveRecord
     public function rules()
     {
         return [
-            [['name_en', 'name_ru', 'section_id'], 'required'],
+            [['name', 'section_id'], 'required'],
             ['section_id', 'integer'],
-            [['slug', 'name', 'name_en', 'name_ru', 'name_uk'], 'string', 'max' => 255]
+            [['slug', 'name'], 'string', 'max' => 255]
         ];
     }
 
@@ -50,9 +47,6 @@ class ContentRubrics extends ActiveRecord
             'id' => Yii::t('app', 'ID'),
             'slug' => Yii::t('app', 'Slug'),
             'name' => Yii::t('app', 'Name'),
-            'name_en' => Yii::t('app', 'Name En'),
-            'name_ru' => Yii::t('app', 'Name Ru'),
-            'name_uk' => Yii::t('app', 'Name Uk'),
             'section_id' => Yii::t('app', 'Section'),
         ];
     }

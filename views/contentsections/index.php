@@ -25,7 +25,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'contentOptions' => ['class' => 'col-sm-1 small text-right'],
                 'attribute' => 'id',
                 'format' => 'html',
-                'value' => function ($model) {
+                'value' => function($model) {
                     return $model->id;
                 },
             ],
@@ -33,8 +33,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 'contentOptions' => ['class' => 'col-sm-11 small text-right'],
                 'attribute' => 'name',
                 'format' => 'html',
-                'value' => function ($model) {
-                    return $model->name;
+                'value' => function($model) {
+                    return Yii::t('app', $model->name);
                 },
             ],
         ],

@@ -76,11 +76,8 @@ $this->title = Yii::t('app', 'Content');
                 'value' => function($model) {
 
                     if (isset($model->rubric)) {
-                        $name = Lang::getCurrent()->url;
-                        $property_name = 'name_' . $name;
-                        $rubric = $model->rubric->$property_name;;
+                        return Yii::t('app',$model->rubric->name);
                     }
-                    return $rubric;
                 },
             ],
             [
