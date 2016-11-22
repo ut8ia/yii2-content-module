@@ -37,9 +37,7 @@ $this->title = Yii::t('app', 'Content Rubrics');
                 'attribute' => 'Name',
                 'format' => 'html',
                 'value' => function($model) {
-                    $name = Lang::getCurrent()->url;
-                    $property_name = 'name_' . $name;
-                    return $model->$property_name;
+                    return Yii::t('app', $model->name);
                 },
             ]
         ],

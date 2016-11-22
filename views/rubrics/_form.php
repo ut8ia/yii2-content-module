@@ -23,6 +23,10 @@ use ut8ia\contentmodule\models\ContentSections;
     ]);
     ?>
 
+    <?= $form->field($model, 'slug')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
+
     <?= $form->field($model, 'name_en')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'name_ru')->textInput(['maxlength' => true]) ?>

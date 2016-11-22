@@ -5,6 +5,18 @@ namespace ut8ia\contentmodule\widgets\partial;
 use yii\base\Widget;
 use Yii;
 
+/**
+ * Class partialWidget
+ * @package ut8ia\contentmodule\widgets\partial
+ * @property array $items
+ * @property string $itemTemplate
+ * @property mixed $itemParams;
+ * @property string $itemView;
+ * @property string $wrapTemplate;
+ * @property mixed $wrapParams;
+ * @property string $wrapView;
+ * @property string $out;
+ */
 class partialWidget extends Widget
 {
 
