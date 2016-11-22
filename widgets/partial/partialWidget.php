@@ -22,12 +22,13 @@ class partialWidget extends Widget
         $this->out = '';
         if (!empty($this->items)) {
             $count = 0;
-            foreach ($this->items as $item) {
+            foreach ($this->items as $index => $value) {
 
                 if (!empty($this->itemView)) {
 
                     $this->out .= $this->renderFile($this->itemView, [
-                        'item' => $item,
+                        'itemIndex' => $index,
+                        'itemValue' => $value,
                         'itemParams' => $this->itemParams,
                         'count' => $count
                     ]);
@@ -35,7 +36,8 @@ class partialWidget extends Widget
                 } elseif (!empty($this->itemTemplate)) {
 
                     $this->out .= $this->render($this->itemTemplate, [
-                        'item' => $item,
+                        'itemIndex' => $index,
+                        'itemValue' => $value,
                         'itemParams' => $this->itemParams,
                         'count' => $count
                     ]);
