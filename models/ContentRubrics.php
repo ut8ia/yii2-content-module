@@ -96,4 +96,16 @@ class ContentRubrics extends ActiveRecord
         return $out;
     }
 
+    /**
+     * @param $section_id
+     * @return array|null
+     */
+    public static function findBySection($section_id)
+    {
+        return ContentRubrics::find()
+            ->where(['=', 'section_id', $section_id])
+            ->all();
+    }
+
+
 }
