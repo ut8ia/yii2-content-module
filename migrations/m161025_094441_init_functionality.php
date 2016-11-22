@@ -13,7 +13,7 @@ class m161025_094441_init_functionality extends Migration
         }
 
         $this->createTable('contentmanager_content', [
-            'id' => $this->integer(11)->notNull()->primaryKey(),
+            'id' => $this->integer(11)->notNull(),
             'name' => $this->string(255)->notNull(),
             'slug' => $this->string(255)->defaultValue(null),
             'text' => $this->text()->notNull(),
@@ -27,32 +27,47 @@ class m161025_094441_init_functionality extends Migration
             'display_format' => $this->string(32)->null()
         ], $tableOptions);
 
+        $this->addPrimaryKey('contentmanager_content_pk','contentmanager_content','id');
+        $this->alterColumn('contentmanager_content', 'id', $this->integer(11).' NOT NULL AUTO_INCREMENT');
+
 
         $this->createTable('contentmanager_rubrics', [
             'id' => $this->integer(11)->notNull()->primaryKey(),
             'section_id' => $this->integer(11)->notNull(),
+            'slug' => $this->string(255)->notNull(),
+            'name' => $this->string(255)->notNull(),
             'name_en' => $this->string(255),
             'name_uk' => $this->string(255),
             'name_ru' => $this->string(255),
         ], $tableOptions);
+        $this->addPrimaryKey('contentmanager_rubrics_pk','contentmanager_rubrics','id');
+        $this->alterColumn('contentmanager_rubrics', 'id', $this->integer(11).' NOT NULL AUTO_INCREMENT');
+
+
 
         $this->createTable('contentmanager_sections', [
-            'id' => $this->integer(11)->notNull()->primaryKey(),
+            'id' => $this->integer(11)->notNull(),
             'name' => $this->string(127)
         ], $tableOptions);
+        $this->addPrimaryKey('contentmanager_sections_pk','contentmanager_sections','id');
+        $this->alterColumn('contentmanager_sections', 'id', $this->integer(11).' NOT NULL AUTO_INCREMENT');
 
         $this->createTable('contentmanager_tags', [
-            'id' => $this->integer(11)->notNull()->primaryKey(),
+            'id' => $this->integer(11)->notNull(),
             'name' => $this->string(64)->notNull(),
             'type' => $this->integer(4)->notNull()
         ], $tableOptions);
+        $this->addPrimaryKey('contentmanager_tags_pk','contentmanager_tags','id');
+        $this->alterColumn('contentmanager_tags', 'id', $this->integer(11).' NOT NULL AUTO_INCREMENT');
 
         $this->createTable('contentmanager_tags_link', [
-            'id' => $this->integer(11)->notNull()->primaryKey(),
+            'id' => $this->integer(11)->notNull(),
             'tag_id' => $this->integer(11)->notNull(),
             'link_id' => $this->integer(11)->notNull(),
             'link_type_id' => $this->integer(4)->notNull()
         ], $tableOptions);
+        $this->addPrimaryKey('contentmanager_tags_link_pk','contentmanager_tags_link','id');
+        $this->alterColumn('contentmanager_tags_link', 'id', $this->integer(11).' NOT NULL AUTO_INCREMENT');
 
     }
 
