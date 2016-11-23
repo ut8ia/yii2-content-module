@@ -10,7 +10,7 @@ You can easy display content depends on :
   - slug
   
 Also you can use helpers and widgets.
-
+Author of the content will be added according to *identityClass* configured in your application
 **installing **
 add into composer.json
 ~~~
@@ -36,7 +36,6 @@ add into composer.json
  
  
  ** requirements **
- - common\models\User class
  - http://github.com/ut8ia/yii2-filemanager
  - http://github.com/ut8ia/yii2-multylang
  

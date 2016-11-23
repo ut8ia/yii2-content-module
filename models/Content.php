@@ -10,7 +10,7 @@ use ut8ia\contentmodule\models\ContentRubrics;
 use ut8ia\contentmodule\models\ContentSections;
 use ut8ia\contentmodule\models\Tags;
 use ut8ia\contentmodule\models\TagsLink;
-use common\models\User;
+//use common\models\User;
 
 use ut8ia\contentmodule\helpers\ContentHelper;
 
@@ -76,7 +76,7 @@ class Content extends ActiveRecord
             'section_id' => 'Section',
             'SystemTags' => Yii::t('main', 'Positioning'),
             'stick' => Yii::t('main', 'it is sticky'),
-            'display_format'=> Yii::t('main', 'Display format'),
+            'display_format' => Yii::t('main', 'Display format'),
         ];
     }
 
@@ -102,7 +102,7 @@ class Content extends ActiveRecord
 
     public function getAuthor()
     {
-        return $this->hasOne(User::class, ['id' => 'author_id']);
+        return $this->hasOne(Yii::$app->user->identityClass, ['id' => 'author_id']);
     }
 
     public function getRubric()
