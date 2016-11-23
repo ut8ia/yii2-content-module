@@ -461,4 +461,21 @@ class Content extends ActiveRecord
             ->column();
     }
 
+
+    /**
+     * @param integer $section_id
+     * @param null|integer $limit
+     * @return array|\yii\db\ActiveRecord[]
+     */
+    public static function findLatestBySection($section_id, $limit = null)
+    {
+        $ans = Content::find()
+            ->where(['section_id' => $section_id])
+            ->orderBy('date DESC');
+        if ($limit) {
+            $ans->limit($limit);
+        }
+        return $ans->all();
+    }
+
 }
