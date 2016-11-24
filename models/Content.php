@@ -29,6 +29,8 @@ use ut8ia\contentmodule\helpers\ContentHelper;
  * @property string $stick
  * @property string $content_type
  * @property string $display_format
+ * @property string $published
+ * @property string $publication_date
  */
 class Content extends ActiveRecord
 {
@@ -54,10 +56,11 @@ class Content extends ActiveRecord
         return [
             [['name', 'text', 'rubric_id', 'section_id'], 'required'],
             [['text', 'slug'], 'string'],
-            [['date', 'author_id', 'SystemTags', 'NavTags', 'stick', 'content_type'], 'safe'],
+            [['date', 'publication_date', 'author_id', 'SystemTags', 'NavTags', 'stick', 'content_type'], 'safe'],
             [['section_id', 'lang_id', 'rubric_id'], 'integer'],
             [['name'], 'string', 'max' => 255],
             [['display_format'], 'string', 'max' => 32],
+            ['published','boolean']
         ];
     }
 
@@ -78,6 +81,8 @@ class Content extends ActiveRecord
             'SystemTags' => Yii::t('main', 'Positioning'),
             'stick' => Yii::t('main', 'it is sticky'),
             'display_format' => Yii::t('main', 'Display format'),
+            'published' => Yii::t('main', 'Published'),
+            'publication_date' => Yii::t('main', 'Publication date'),
         ];
     }
 

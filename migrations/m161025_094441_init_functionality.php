@@ -24,11 +24,13 @@ class m161025_094441_init_functionality extends Migration
             'section_id' => $this->integer(4)->notNull(),
             'stick' => $this->integer(1)->defaultValue(null),
             'content_type' => "enum('text','html','javascript') NOT NULL",
-            'display_format' => $this->string(32)->null()
+            'display_format' => $this->string(32)->null(),
+            'published' => $this->boolean()->notNull(),
+            'publication_date' => 'timestamp NULL'
         ], $tableOptions);
 
-        $this->addPrimaryKey('contentmanager_content_pk','contentmanager_content','id');
-        $this->alterColumn('contentmanager_content', 'id', $this->integer(11).' NOT NULL AUTO_INCREMENT');
+        $this->addPrimaryKey('contentmanager_content_pk', 'contentmanager_content', 'id');
+        $this->alterColumn('contentmanager_content', 'id', $this->integer(11) . ' NOT NULL AUTO_INCREMENT');
 
 
         $this->createTable('contentmanager_rubrics', [
@@ -37,25 +39,24 @@ class m161025_094441_init_functionality extends Migration
             'slug' => $this->string(255)->notNull(),
             'name' => $this->string(255)->notNull()
         ], $tableOptions);
-        $this->addPrimaryKey('contentmanager_rubrics_pk','contentmanager_rubrics','id');
-        $this->alterColumn('contentmanager_rubrics', 'id', $this->integer(11).' NOT NULL AUTO_INCREMENT');
-
+        $this->addPrimaryKey('contentmanager_rubrics_pk', 'contentmanager_rubrics', 'id');
+        $this->alterColumn('contentmanager_rubrics', 'id', $this->integer(11) . ' NOT NULL AUTO_INCREMENT');
 
 
         $this->createTable('contentmanager_sections', [
             'id' => $this->integer(11)->notNull(),
             'name' => $this->string(127)
         ], $tableOptions);
-        $this->addPrimaryKey('contentmanager_sections_pk','contentmanager_sections','id');
-        $this->alterColumn('contentmanager_sections', 'id', $this->integer(11).' NOT NULL AUTO_INCREMENT');
+        $this->addPrimaryKey('contentmanager_sections_pk', 'contentmanager_sections', 'id');
+        $this->alterColumn('contentmanager_sections', 'id', $this->integer(11) . ' NOT NULL AUTO_INCREMENT');
 
         $this->createTable('contentmanager_tags', [
             'id' => $this->integer(11)->notNull(),
             'name' => $this->string(64)->notNull(),
             'type' => $this->integer(4)->notNull()
         ], $tableOptions);
-        $this->addPrimaryKey('contentmanager_tags_pk','contentmanager_tags','id');
-        $this->alterColumn('contentmanager_tags', 'id', $this->integer(11).' NOT NULL AUTO_INCREMENT');
+        $this->addPrimaryKey('contentmanager_tags_pk', 'contentmanager_tags', 'id');
+        $this->alterColumn('contentmanager_tags', 'id', $this->integer(11) . ' NOT NULL AUTO_INCREMENT');
 
         $this->createTable('contentmanager_tags_link', [
             'id' => $this->integer(11)->notNull(),
@@ -63,8 +64,8 @@ class m161025_094441_init_functionality extends Migration
             'link_id' => $this->integer(11)->notNull(),
             'link_type_id' => $this->integer(4)->notNull()
         ], $tableOptions);
-        $this->addPrimaryKey('contentmanager_tags_link_pk','contentmanager_tags_link','id');
-        $this->alterColumn('contentmanager_tags_link', 'id', $this->integer(11).' NOT NULL AUTO_INCREMENT');
+        $this->addPrimaryKey('contentmanager_tags_link_pk', 'contentmanager_tags_link', 'id');
+        $this->alterColumn('contentmanager_tags_link', 'id', $this->integer(11) . ' NOT NULL AUTO_INCREMENT');
 
     }
 
