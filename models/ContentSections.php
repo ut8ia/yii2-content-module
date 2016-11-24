@@ -60,13 +60,4 @@ class ContentSections extends \yii\db\ActiveRecord
     }
 
 
-    /**
-     * @return bool
-     */
-    public function beforeDelete()
-    {
-        return parent::beforeDelete(); // TODO: bind rubrics and content to zero section
-    }
-
-
 }

@@ -10,7 +10,7 @@ use ut8ia\contentmodule\models\ContentRubrics;
 use ut8ia\contentmodule\models\ContentSections;
 use ut8ia\contentmodule\models\Tags;
 use ut8ia\contentmodule\models\TagsLink;
-use common\models\User;
+//use common\models\User;
 
 use ut8ia\contentmodule\helpers\ContentHelper;
 
@@ -29,6 +29,8 @@ use ut8ia\contentmodule\helpers\ContentHelper;
  * @property string $stick
  * @property string $content_type
  * @property string $display_format
+ * @property string $published
+ * @property string $publication_date
  */
 class Content extends ActiveRecord
 {
@@ -38,6 +40,7 @@ class Content extends ActiveRecord
      */
     public $SystemTags;
     public $NavTags;
+    public $SeoTags;
 
     public static function tableName()
     {
@@ -53,10 +56,11 @@ class Content extends ActiveRecord
         return [
             [['name', 'text', 'rubric_id', 'section_id'], 'required'],
             [['text', 'slug'], 'string'],
-            [['date', 'author_id', 'SystemTags', 'NavTags', 'stick', 'content_type'], 'safe'],
+            [['date', 'publication_date', 'author_id', 'SystemTags', 'NavTags', 'stick', 'content_type'], 'safe'],
             [['section_id', 'lang_id', 'rubric_id'], 'integer'],
             [['name'], 'string', 'max' => 255],
             [['display_format'], 'string', 'max' => 32],
+            ['published','boolean']
         ];
     }
 
@@ -76,7 +80,9 @@ class Content extends ActiveRecord
             'section_id' => 'Section',
             'SystemTags' => Yii::t('main', 'Positioning'),
             'stick' => Yii::t('main', 'it is sticky'),
-            'display_format'=> Yii::t('main', 'Display format'),
+            'display_format' => Yii::t('main', 'Display format'),
+            'published' => Yii::t('main', 'Published'),
+            'publication_date' => Yii::t('main', 'Publication date'),
         ];
     }
 
@@ -102,7 +108,7 @@ class Content extends ActiveRecord
 
     public function getAuthor()
     {
-        return $this->hasOne(User::class, ['id' => 'author_id']);
+        return $this->hasOne(Yii::$app->user->identityClass, ['id' => 'author_id']);
     }
 
     public function getRubric()
@@ -135,15 +141,19 @@ class Content extends ActiveRecord
 
     public function getSystemTags()
     {
-        return $this->getLinkedTagsByType($this->id, 1, 0, null);
+        return $this->getLinkedTagsByType($this->id, TAGS::TYPE_POSITIONING, 0, null);
     }
 
 
     public function getNavTags()
     {
-        return $this->getLinkedTagsByType($this->id, 2, 0, null);
+        return $this->getLinkedTagsByType($this->id, TAGS::TYPE_NAVIGATION, 0, null);
     }
 
+    public function getSeoTags()
+    {
+        return $this->getLinkedTagsByType($this->id, TAGS::TYPE_SEO, 0, null);
+    }
 
     public function getContentTypes()
     {
@@ -459,6 +469,23 @@ class Content extends ActiveRecord
             ->select('name')
             ->indexBy('id')
             ->column();
+    }
+
+
+    /**
+     * @param integer $section_id
+     * @param null|integer $limit
+     * @return array|\yii\db\ActiveRecord[]
+     */
+    public static function findLatestBySection($section_id, $limit = null)
+    {
+        $ans = Content::find()
+            ->where(['section_id' => $section_id])
+            ->orderBy('date DESC');
+        if ($limit) {
+            $ans->limit($limit);
+        }
+        return $ans->all();
     }
 
 }

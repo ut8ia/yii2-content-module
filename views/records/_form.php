@@ -111,13 +111,11 @@ $tags = new Tags();
     <div class="form-group row">
         <div class="col-lg-2 small"><?php echo Yii::t('main', 'Date'); ?></div>
 
-
         <?=
         $form->field($model, 'date', [
             'template' => '<div class="col-lg-5">{input}</div>',
             'options' => ['class' => 'inline']])->widget(DateTimePicker::class);
         ?>
-
 
         <?php
 
@@ -146,7 +144,6 @@ $tags = new Tags();
     };
     ?>
 
-
     <div class="row">
         <div class="col-lg-2 small text-left"><?= Yii::t('main', 'Author'); ?></div>
         <div class="col-lg-5">
@@ -164,8 +161,6 @@ $tags = new Tags();
             ?>
         </div>
     </div>
-
-
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
