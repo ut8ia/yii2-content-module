@@ -15,6 +15,10 @@ use yii\db\ActiveRecord;
 class Tags extends ActiveRecord
 {
 
+    const TYPE_POSITIONING = 1;
+    const TYPE_NAVIGATION = 2;
+    const TYPE_SEO = 3;
+
     // tag types
     const TAG_TYPES = [
         1 => 'positioning',
@@ -28,17 +32,6 @@ class Tags extends ActiveRecord
     public static function tableName()
     {
         return 'contentmanager_tags';
-    }
-
-
-    public static $instance = null;
-
-    public static function getInstance()
-    {
-        if (empty(self::$instance)) {
-            self::$instance = new self();
-        }
-        return self::$instance;
     }
 
     /**
@@ -97,12 +90,21 @@ class Tags extends ActiveRecord
     }
 
 
+    public static function getTypes()
+    {
+        return [
+            TAGS::TYPE_POSITIONING => Yii::t('app', 'positioning'),
+            TAGS::TYPE_NAVIGATION => Yii::t('app', 'navigation'),
+            TAGS::TYPE_SEO => Yii::t('app', 'seo')
+        ];
+    }
+
     /**
      * @return array
      */
-    public function getSelector()
+    public static function getSelector()
     {
-        return Tags::TAG_TYPES;
+        return Tags::getTypes();
     }
 
 }

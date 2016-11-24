@@ -38,6 +38,7 @@ class Content extends ActiveRecord
      */
     public $SystemTags;
     public $NavTags;
+    public $SeoTags;
 
     public static function tableName()
     {
@@ -135,15 +136,19 @@ class Content extends ActiveRecord
 
     public function getSystemTags()
     {
-        return $this->getLinkedTagsByType($this->id, 1, 0, null);
+        return $this->getLinkedTagsByType($this->id, TAGS::TYPE_POSITIONING, 0, null);
     }
 
 
     public function getNavTags()
     {
-        return $this->getLinkedTagsByType($this->id, 2, 0, null);
+        return $this->getLinkedTagsByType($this->id, TAGS::TYPE_NAVIGATION, 0, null);
     }
 
+    public function getSeoTags()
+    {
+        return $this->getLinkedTagsByType($this->id, TAGS::TYPE_SEO, 0, null);
+    }
 
     public function getContentTypes()
     {

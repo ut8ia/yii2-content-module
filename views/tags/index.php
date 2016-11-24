@@ -9,7 +9,6 @@ use ut8ia\contentmodule\models\Tags;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = Yii::t('app', 'Tags');
-$tag_types = Tags::getInstance()->getSelector();
 //    dd($tag_types);
 ?>
 <div class="tags-index">
@@ -29,24 +28,23 @@ $tag_types = Tags::getInstance()->getSelector();
                 'contentOptions' => ['class' => 'col-sm-1 small text-left'],
                 'attribute' => 'Id',
                 'format' => 'html',
-                'value' => function ($model) {
-            return $model->id;
-        }],
+                'value' => function($model) {
+                    return $model->id;
+                }],
             [
                 'contentOptions' => ['class' => 'col-sm-7 small text-left'],
                 'attribute' => 'Name',
                 'format' => 'html',
-                'value' => function ($model) {
-            return $model->name;
-        }],
+                'value' => function($model) {
+                    return $model->name;
+                }],
             [
                 'contentOptions' => ['class' => 'col-sm-4 small text-left'],
                 'attribute' => 'Type',
                 'format' => 'html',
-                'value' => function ($model) {
-            $tag_types = Tags::TAG_TYPES;
-            return $tag_types[$model->type];
-        }],
+                'value' => function($model) {
+                    return Tags::getTypes()[$model->type];
+                }],
         ],
     ]);
     ?>
