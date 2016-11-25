@@ -33,6 +33,9 @@ class ContentHelper
                     $main = $tempArray;
                 }
             }
+            if (!isset($tempArray['alt'])) {
+                $tempArray['alt'] = '';
+            }
             $images[$c] = $tempArray;
             $c++;
         }
