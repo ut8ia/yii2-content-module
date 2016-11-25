@@ -145,23 +145,43 @@ $tags = new Tags();
 
     <div class="form-group row">
         <div class="col-lg-2 small"><?php echo Yii::t('main', 'Date'); ?></div>
-
-
-        <?=
-        $form->field($model, 'date', [
+        <?= $form->field($model, 'date', [
             'template' => '<div class="col-lg-5">{input}</div>',
             'options' => ['class' => 'inline']])->widget(DateTimePicker::class);
         ?>
-
-
-        <?=
-        $form->field($model, 'lang_id', [
+        <?= $form->field($model, 'lang_id', [
             'template' => '<div class="col-lg-5">{input}</div>',
             'options' => ['class' => 'inline']])->dropDownList(Lang::selector());
         ?>
     </div>
 
-    <div class="row">
+    <div class="form-group row">
+        <div class="col-lg-2 small text-left"><?= Yii::t('main', 'Publication'); ?></div>
+        <?= $form->field($model, 'publication_date', [
+            'template' => '<div class="col-lg-5">{input}</div>',
+            'options' => ['class' => 'inline']
+        ])
+            ->widget(DateTimePicker::class);
+        ?>
+        <?= $form->field($model, 'published', [
+            'template' => '<div class="col-lg-5">{input}</div>',
+            'options' => ['class' => 'inline']
+        ])
+            ->checkbox();
+        ?>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-lg-2 small text-left"><?= Yii::t('main', 'Display format'); ?></div>
+        <?= $form->field($model, 'display_format', [
+            'template' => '<div class="col-lg-5">{input}</div>',
+            'options' => ['class' => 'inline']])
+            ->textInput();
+
+        ?>
+    </div>
+
+    <div class="form-group row">
         <div class="col-lg-2 small text-left"><?= Yii::t('main', 'Author'); ?></div>
         <div class="col-lg-5">
             <?php

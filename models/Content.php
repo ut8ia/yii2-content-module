@@ -10,7 +10,6 @@ use ut8ia\contentmodule\models\ContentRubrics;
 use ut8ia\contentmodule\models\ContentSections;
 use ut8ia\contentmodule\models\Tags;
 use ut8ia\contentmodule\models\TagsLink;
-//use common\models\User;
 
 use ut8ia\contentmodule\helpers\ContentHelper;
 
@@ -60,7 +59,7 @@ class Content extends ActiveRecord
             [['section_id', 'lang_id', 'rubric_id'], 'integer'],
             [['name'], 'string', 'max' => 255],
             [['display_format'], 'string', 'max' => 32],
-            ['published','boolean']
+            ['published', 'boolean']
         ];
     }
 
@@ -181,17 +180,22 @@ class Content extends ActiveRecord
         if (parent::beforeSave($insert)) {
             // set author_id only for new records
             if ($this->id > 0) {
+                // author never changes
                 unset($this->author_id);
             } else {
+                //new records
                 // set current user as author
                 $this->author_id = \Yii::$app->user->identity->id;
-            }
 
-            // if multylang is disabled - set as current lang
-            if (!Yii::$app->controller->module->multilanguage) {
-                $this->lang_id = Lang::getDefaultLang()->id;
+                // if multylang is disabled - set as current lang
+                if (!Yii::$app->controller->module->multilanguage) {
+                    $this->lang_id = Lang::getDefaultLang()->id;
+                }
+                // publicate post if it has no custom publication and publication shedule
+                if (!Yii::$app->controller->module->publication and !Yii::$app->controller->module->publicationShedule) {
+                    $this->published = true;
+                }
             }
-
             return true;
         } else {
             return false;

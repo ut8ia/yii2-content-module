@@ -128,23 +128,56 @@ $tags = new Tags();
     </div>
 
     <?php
-    if (Yii::$app->controller->module->display_format) {
+    if (Yii::$app->controller->module->publicationShedule || Yii::$app->controller->module->publication) {
 
-    ?>
-    <div class="form-group row">
-        <div class="col-lg-2 small text-left"><?= Yii::t('main', 'Display format'); ?></div>
+        ?>
+        <div class="form-group row">
+            <div class="col-lg-2 small text-left"><?= Yii::t('main', 'Publication'); ?></div>
             <?php
-            echo $form->field($model, 'display_format', [
-                'template' => '<div class="col-lg-5">{input}</div>',
-                'options' => ['class' => 'inline']])
-                ->dropDownList(Yii::$app->controller->module->display_formats);
+            if (Yii::$app->controller->module->publicationShedule) {
+                $form->field($model, 'publication_date', [
+                    'template' => '<div class="col-lg-5">{input}</div>',
+                    'options' => ['class' => 'inline']
+                ])
+                    ->widget(DateTimePicker::class);
+            }
             ?>
-    </div>
-    <?php
+
+            <?php
+            if (Yii::$app->controller->module->publication) {
+                $form->field($model, 'published', [
+                    'template' => '<div class="col-lg-5">{input}</div>',
+                    'options' => ['class' => 'inline']
+                ])
+                    ->checkbox();
+            }
+            ?>
+        </div>
+        <?php
     };
     ?>
 
-    <div class="row">
+    <?php
+    if (Yii::$app->controller->module->displayFormat) {
+
+        ?>
+        <div class="form-group row">
+            <div class="col-lg-2 small text-left"><?= Yii::t('main', 'Display format'); ?></div>
+            <?php
+            $formats = Yii::$app->controller->module->displayFormats;
+            if (is_array($formats) and !empty($formats)) {
+                echo $form->field($model, 'display_format', [
+                    'template' => '<div class="col-lg-5">{input}</div>',
+                    'options' => ['class' => 'inline']])
+                    ->dropDownList(Yii::$app->controller->module->displayFormats);
+            }
+            ?>
+        </div>
+        <?php
+    };
+    ?>
+
+    <div class="form-group row">
         <div class="col-lg-2 small text-left"><?= Yii::t('main', 'Author'); ?></div>
         <div class="col-lg-5">
             <?php

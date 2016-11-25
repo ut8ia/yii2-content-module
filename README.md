@@ -96,10 +96,10 @@ add into composer.json
              'sectionId' => 1,
              'positioning' => true, // show positioning tags input
              'navigationTags' => true, // show navigation tags input
-             'stick' => true, // show sticky checkob in form
+             'stick' => true, // show sticky checkbox in form
              'multilanguage' =>true // show multylanguiage selector
-             'display_format' => true // enable format dropdown in form 
-             'display_formats' =>[  // configure possible values
+             'displayFormat' => true // enable format dropdown in form 
+             'displayFormats' =>[  // configure possible values
                'simple'=>'simple format', // you can switch your rendering 
                'full'=>'display this content in full template' // depends on this values             
                 ]
