@@ -262,12 +262,15 @@ class Content extends ActiveRecord
      * @param null $limit
      * @return $this
      */
-    public function bySection($section_id, $limit = null)
+    public function bySection($section_id, $limit = null, $all = false)
     {
         $ans = Content::find()
             ->where(['=', 'section_id', $section_id])
-            ->andWhere(['=', '`contentmanager_content`.`lang_id`', Lang::getCurrent()->id])
-            ->orderBy('date DESC');
+            ->andWhere(['=', '`contentmanager_content`.`lang_id`', Lang::getCurrent()->id]);
+        if (!$all) {
+            $ans->andWhere(['=', 'published', true]);
+        }
+        $ans->orderBy('date DESC');
         $ans = ((int)$limit) ? $ans->limit($limit) : $ans;
         $ans = $ans->all();
         return $ans;
@@ -481,11 +484,15 @@ class Content extends ActiveRecord
      * @param null|integer $limit
      * @return array|\yii\db\ActiveRecord[]
      */
-    public static function findLatestBySection($section_id, $limit = null)
+    public static function findLatestBySection($section_id, $limit = null, $all = null)
     {
         $ans = Content::find()
-            ->where(['section_id' => $section_id])
-            ->orderBy('date DESC');
+            ->where(['section_id' => $section_id]);
+
+        if (!$all) {
+            $ans->andWhere(['=', 'published', true]);
+        }
+        $ans->orderBy('date DESC');
         if ($limit) {
             $ans->limit($limit);
         }

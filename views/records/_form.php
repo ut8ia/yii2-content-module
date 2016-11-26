@@ -135,7 +135,7 @@ $tags = new Tags();
             <div class="col-lg-2 small text-left"><?= Yii::t('main', 'Publication'); ?></div>
             <?php
             if (Yii::$app->controller->module->publicationShedule) {
-                $form->field($model, 'publication_date', [
+                echo $form->field($model, 'publication_date', [
                     'template' => '<div class="col-lg-5">{input}</div>',
                     'options' => ['class' => 'inline']
                 ])
@@ -145,7 +145,7 @@ $tags = new Tags();
 
             <?php
             if (Yii::$app->controller->module->publication) {
-                $form->field($model, 'published', [
+                echo $form->field($model, 'published', [
                     'template' => '<div class="col-lg-5">{input}</div>',
                     'options' => ['class' => 'inline']
                 ])
