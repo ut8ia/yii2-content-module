@@ -15,6 +15,7 @@
       "ut8ia\\contentmodule\\": "/"
     }
   },
+  "minimum-stability": "dev",
   "require": {
     "php": ">5.3.4",
     "ut8ia/yii2-multylang":"*",
