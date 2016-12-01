@@ -9,6 +9,7 @@ use ut8ia\contentmodule\models\Content;
  * Class ContentPublisher
  * @package ut8ia\contentmodule\components
  * @property integer $timstamp
+ * @property string $time
  */
 class ContentPublisher extends Object
 {
@@ -36,6 +37,7 @@ class ContentPublisher extends Object
 
         foreach ($records as $record) {
             $record->published = true;
+            $record->date = $record->publication_date;
             $record->save();
         }
     }

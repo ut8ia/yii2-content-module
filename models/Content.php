@@ -164,7 +164,7 @@ class Content extends ActiveRecord
     }
 
     /**
-     * @return if set section - automatic set section_id to model
+     *  if set section - automatic set section_id to model
      */
     public function beforeValidate()
     {
@@ -244,14 +244,18 @@ class Content extends ActiveRecord
     /**
      * @param $rubric_id
      * @param null $limit
+     * @param bool $all
      * @return $this
      */
-    public function byRubric($rubric_id, $limit = null)
+    public function byRubric($rubric_id, $limit = null, $all = false)
     {
         $ans = Content::find()
             ->where(['=', 'rubric_id', $rubric_id])
-            ->andWhere(['=', '`contentmanager_content`.`lang_id`', Lang::getCurrent()->id])
-            ->orderBy('date DESC');
+            ->andWhere(['=', '`contentmanager_content`.`lang_id`', Lang::getCurrent()->id]);
+        if (!$all) {
+            $ans->andWhere(['=', 'published', true]);
+        }
+        $ans->orderBy('date DESC');
         $ans = ((int)$limit) ? $ans->limit($limit) : $ans;
         $ans = $ans->all();
         return $ans;
@@ -260,6 +264,7 @@ class Content extends ActiveRecord
     /**
      * @param $section_id
      * @param null $limit
+     * @param bool $all
      * @return $this
      */
     public function bySection($section_id, $limit = null, $all = false)
@@ -282,6 +287,7 @@ class Content extends ActiveRecord
     {
         $ans = Content::find()
             ->where(['=', 'section_id', $section_id])
+            ->andWhere(['=', 'published', true])
             ->andWhere(['=', '`contentmanager_content`.`lang_id`', Lang::getCurrent()->id])
             ->orderBy('RAND() ');
         $ans = ((int)$limit) ? $ans->limit($limit) : $ans;

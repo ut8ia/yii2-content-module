@@ -34,7 +34,7 @@ class m161025_094441_init_functionality extends Migration
 
 
         $this->createTable('contentmanager_rubrics', [
-            'id' => $this->integer(11)->notNull()->primaryKey(),
+            'id' => $this->integer(11)->notNull(),
             'section_id' => $this->integer(11)->notNull(),
             'slug' => $this->string(255)->notNull(),
             'name' => $this->string(255)->notNull()
