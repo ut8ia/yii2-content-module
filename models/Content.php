@@ -292,9 +292,8 @@ class Content extends ActiveRecord
             ->orderBy('RAND() ');
         $ans = ((int)$limit) ? $ans->limit($limit) : $ans;
         $items = $ans->all();
-
+        $collection = [];
         if (!empty($items)) {
-            $collection = [];
             $c = 0;
             foreach ($items as $item) {
                 $images = ContentHelper::fetchImages($item->text);
