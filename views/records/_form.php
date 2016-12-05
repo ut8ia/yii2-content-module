@@ -108,25 +108,18 @@ $tags = new Tags();
     }
     ?>
 
-    <div class="form-group row">
-        <div class="col-lg-2 small"><?php echo Yii::t('main', 'Date'); ?></div>
-
-        <?=
-        $form->field($model, 'date', [
-            'template' => '<div class="col-lg-5">{input}</div>',
-            'options' => ['class' => 'inline']])->widget(DateTimePicker::class);
-        ?>
-
-        <?php
-
-        if (Yii::$app->controller->module->multilanguage) {
-            echo $form->field($model, 'lang_id', [
+    <?php if (Yii::$app->controller->module->multilanguage) { ?>
+        <div class="form-group row">
+            <div class="col-lg-2 small"><?php echo Yii::t('main', 'Language'); ?></div>
+            <?= $form->field($model, 'lang_id', [
                 'template' => '<div class="col-lg-5">{input}</div>',
                 'options' => ['class' => 'inline']])->dropDownList(Lang::selector());
-        }
-        ?>
-    </div>
+            ?>
+        </div>
 
+        <?php
+    }
+    ?>
     <?php
     if (Yii::$app->controller->module->publicationShedule || Yii::$app->controller->module->publication) {
 
