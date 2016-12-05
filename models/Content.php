@@ -194,6 +194,7 @@ class Content extends ActiveRecord
                 // publicate post if it has no custom publication and publication shedule
                 if (!Yii::$app->controller->module->publication and !Yii::$app->controller->module->publicationShedule) {
                     $this->published = true;
+                    $this->publication_date = date('Y-m-d H:m:s', time());
                 }
             }
             return true;
@@ -232,7 +233,7 @@ class Content extends ActiveRecord
     public function getLast($rubric_id = null, $limit = null)
     {
         $ans = Content::find()
-            ->orderBy('date DESC')
+            ->orderBy('publication_date DESC')
             ->where(['=', 'rubric_id', $rubric_id])
             ->andWhere(['=', '`contentmanager_content`.`lang_id`', Lang::getCurrent()->id]);
         // if set limit - return all 
@@ -255,7 +256,7 @@ class Content extends ActiveRecord
         if (!$all) {
             $ans->andWhere(['=', 'published', true]);
         }
-        $ans->orderBy('date DESC');
+        $ans->orderBy('publication_date DESC');
         $ans = ((int)$limit) ? $ans->limit($limit) : $ans;
         $ans = $ans->all();
         return $ans;
@@ -275,7 +276,7 @@ class Content extends ActiveRecord
         if (!$all) {
             $ans->andWhere(['=', 'published', true]);
         }
-        $ans->orderBy('date DESC');
+        $ans->orderBy('publication_date DESC');
         $ans = ((int)$limit) ? $ans->limit($limit) : $ans;
         $ans = $ans->all();
         return $ans;
@@ -377,7 +378,7 @@ class Content extends ActiveRecord
             ->andWhere(['=', 'rubric_id', $rubric_id])
             ->andWhere(['=', '`contentmanager_tags`.`type`', $tag_type])
             ->andWhere(['=', '`contentmanager_content`.`lang_id`', Lang::getCurrent()->id])
-            ->orderBy('date DESC');
+            ->orderBy('publication_date DESC');
 
         $ans = ((int)$limit) ? $ans->limit($limit) : $ans;
         $ans = $ans->all();
@@ -395,7 +396,7 @@ class Content extends ActiveRecord
             ->where(['=', 'rubric_id', $rubric_id])
             ->andWhere(['=', '`contentmanager_content`.`lang_id`', Lang::getCurrent()->id])
             ->andWhere(['=', 'stick', 'true'])
-            ->orderBy('date DESC');
+            ->orderBy('publication_date DESC');
         $ans = ((int)$limit) ? $ans->limit($limit) : $ans;
         $ans = $ans->all();
         return $ans;
@@ -414,7 +415,7 @@ class Content extends ActiveRecord
             ->select('`contentmanager_content`.*')
             ->where(['=', '`contentmanager_tags`.`name`', $tag])
             ->andWhere(['=', '`contentmanager_content`.`lang_id`', Lang::getCurrent()->id])
-            ->orderBy('date DESC')
+            ->orderBy('publication_date DESC')
             ->one();
 
         if (!isset($ans->id)) {
@@ -497,7 +498,7 @@ class Content extends ActiveRecord
         if (!$all) {
             $ans->andWhere(['=', 'published', true]);
         }
-        $ans->orderBy('date DESC');
+        $ans->orderBy('publication_date DESC');
         if ($limit) {
             $ans->limit($limit);
         }

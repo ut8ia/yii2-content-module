@@ -96,11 +96,14 @@ $this->title = Yii::t('app', 'Content');
     ];
 
     $columns[] = [
-        'contentOptions' => ['class' => 'col-sm-2 small text-center'],
-        'attribute' => 'Date',
+        'contentOptions' => function($model) {
+            $style = ($model->published) ? 'bg-success' : '';
+            return ['class' => 'col-sm-2 small text-center ' . $style];
+        },
+        'attribute' => 'Publication date',
         'format' => 'html',
         'value' => function($model) {
-            return $model->date;
+            return $model->publication_date;
         },
     ];
 

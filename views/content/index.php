@@ -18,7 +18,8 @@ $this->title = Yii::t('app', 'Content');
     </p>
 
     <?=
-    GridView::widget(['dataProvider' => $dataProvider,
+    GridView::widget([
+        'dataProvider' => $dataProvider,
         //    'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\ActionColumn',
@@ -54,7 +55,7 @@ $this->title = Yii::t('app', 'Content');
                 },
             ],
             [
-                'contentOptions' => ['class' => 'col-sm-2 small text-left'],
+                'contentOptions' => ['class' => 'col-sm-1 small text-left'],
                 'attribute' => 'Name',
                 'format' => 'html',
                 'value' => function($model) {
@@ -76,7 +77,7 @@ $this->title = Yii::t('app', 'Content');
                 'value' => function($model) {
 
                     if (isset($model->rubric)) {
-                        return Yii::t('app',$model->rubric->name);
+                        return Yii::t('app', $model->rubric->name);
                     }
                 },
             ],
@@ -108,11 +109,22 @@ $this->title = Yii::t('app', 'Content');
                 },
             ],
             [
-                'contentOptions' => ['class' => 'col-sm-2 small text-center'],
+                'contentOptions' => ['class' => 'col-sm-1 small text-center'],
                 'attribute' => 'Date',
                 'format' => 'html',
                 'value' => function($model) {
                     return $model->date;
+                },
+            ],
+            [
+                'contentOptions' => function($model) {
+                    $style = ($model->published) ? 'bg-success' : '';
+                    return ['class' => 'col-sm-1 small text-left ' . $style];
+                },
+                'attribute' => 'Date',
+                'format' => 'html',
+                'value' => function($model) {
+                    return $model->publication_date;
                 },
             ],
         ],
