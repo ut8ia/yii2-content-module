@@ -73,6 +73,14 @@ $tags = new Tags();
         </form>
     </iframe>
 
+    <?php
+
+    if (Yii::$app->controller->module->description) {
+
+        echo $form->field($model,'description')->textarea();
+    }
+
+    ?>
 
     <?php
 

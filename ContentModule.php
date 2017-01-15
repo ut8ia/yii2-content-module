@@ -9,6 +9,7 @@ use \yii\base\Module;
  * @package ut8ia\contentmodule
  * @property integer $sectionId
  * @property boolean $multilanguage
+ * @property boolean $description
  * @property boolean $positioning
  * @property boolean $stick
  * @property boolean $navigationTags
@@ -21,6 +22,7 @@ class ContentModule extends Module
 
     public $sectionId;
     public $multilanguage;
+    public $description;
     public $positioning;
     public $stick;
     public $navigationTags;

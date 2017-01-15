@@ -20,6 +20,7 @@ use ut8ia\contentmodule\helpers\ContentHelper;
  * @property string $name
  * @property string $slug
  * @property string $text
+ * @property string $description
  * @property string $lang_id
  * @property string $date
  * @property string $rubric_id
@@ -54,7 +55,7 @@ class Content extends ActiveRecord
     {
         return [
             [['name', 'text', 'rubric_id', 'section_id'], 'required'],
-            [['text', 'slug'], 'string'],
+            [['text', 'slug', 'description'], 'string'],
             [['date', 'publication_date', 'author_id', 'SystemTags', 'NavTags', 'stick', 'content_type'], 'safe'],
             [['section_id', 'lang_id', 'rubric_id'], 'integer'],
             [['name'], 'string', 'max' => 255],
@@ -73,6 +74,7 @@ class Content extends ActiveRecord
             'name' => 'Name',
             'slug' => 'slug',
             'text' => 'Text',
+            'description' => 'Description',
             'date' => 'Date',
             'author_id' => 'Author',
             'rubric_id' => 'Theme',

@@ -17,6 +17,7 @@ class m161025_094441_init_functionality extends Migration
             'name' => $this->string(255)->notNull(),
             'slug' => $this->string(255)->defaultValue(null),
             'text' => $this->text()->notNull(),
+            'description' => $this->string(255)->defaultValue(null),
             'lang_id' => $this->integer(4)->defaultValue(null),
             'date' => 'timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP',
             'rubric_id' => $this->integer(11)->notNull(),
