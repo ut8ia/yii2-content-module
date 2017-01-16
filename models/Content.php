@@ -306,13 +306,14 @@ class Content extends ActiveRecord
                 // fetch image - main or random
                 if ($mainOnly) {
                     $collection[$c]['src'] = $images['main']['src'];
-                    $collection[$c]['slug'] = $item['slug'];
                 } else {
                     $imageNum = (int)rand(0, $images['count'] - 1);
                     $collection[$c]['src'] = $images['images'][$imageNum]['src'];
                     $collection[$c]['slug'] = $item['slug'];
                 }
 
+                $collection[$c]['slug'] = $item['slug'];
+                $collection[$c]['name'] = $item['name'];
                 $c++;
                 if ($c == $limit) {
                     break;
