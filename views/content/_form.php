@@ -117,6 +117,9 @@ $tags = new Tags();
         </form>
     </iframe>
 
+    <?php
+    echo $form->field($model,'description')->textarea();
+    ?>
 
     <?php
     echo $form->field($model, 'NavTags')->widget(Select2::class, [
