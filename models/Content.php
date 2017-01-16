@@ -312,6 +312,7 @@ class Content extends ActiveRecord
                     $imageNum = (int)rand(0, $images['count'] - 1);
                     $collection[$c]['src'] = $images['images'][$imageNum]['src'];
                     $collection[$c]['slug'] = $item['slug'];
+                    $collection[$c]['name'] = $item->name;
                 }
 
                 $collection[$c]['slug'] = $item['slug'];
