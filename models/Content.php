@@ -31,6 +31,7 @@ use ut8ia\contentmodule\helpers\ContentHelper;
  * @property string $display_format
  * @property string $published
  * @property string $publication_date
+ * @property string $sort
  */
 class Content extends ActiveRecord
 {
@@ -57,7 +58,7 @@ class Content extends ActiveRecord
             [['name', 'text', 'rubric_id', 'section_id'], 'required'],
             [['text', 'slug', 'description'], 'string'],
             [['date', 'publication_date', 'author_id', 'SystemTags', 'NavTags', 'stick', 'content_type'], 'safe'],
-            [['section_id', 'lang_id', 'rubric_id'], 'integer'],
+            [['section_id', 'lang_id', 'rubric_id', 'sort'], 'integer'],
             [['name'], 'string', 'max' => 255],
             [['display_format'], 'string', 'max' => 32],
             ['published', 'boolean']
@@ -84,6 +85,7 @@ class Content extends ActiveRecord
             'display_format' => Yii::t('main', 'Display format'),
             'published' => Yii::t('main', 'Published'),
             'publication_date' => Yii::t('main', 'Publication date'),
+            'sort' => Yii::t('main', 'Sort')
         ];
     }
 
@@ -248,17 +250,19 @@ class Content extends ActiveRecord
      * @param $rubric_id
      * @param null $limit
      * @param bool $all
+     * @param string $order
      * @return $this
      */
-    public function byRubric($rubric_id, $limit = null, $all = false)
+    public function byRubric($rubric_id, $limit = null, $all = false, $order = false)
     {
+        $order = ($order) ? $order : 'publication_date DESC';
         $ans = Content::find()
             ->where(['=', 'rubric_id', $rubric_id])
             ->andWhere(['=', '`contentmanager_content`.`lang_id`', Lang::getCurrent()->id]);
         if (!$all) {
             $ans->andWhere(['=', 'published', true]);
         }
-        $ans->orderBy('publication_date DESC');
+        $ans->orderBy($order);
         $ans = ((int)$limit) ? $ans->limit($limit) : $ans;
         $ans = $ans->all();
         return $ans;
