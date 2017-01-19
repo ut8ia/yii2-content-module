@@ -27,7 +27,8 @@ class m161025_094441_init_functionality extends Migration
             'content_type' => "enum('text','html','javascript') NOT NULL",
             'display_format' => $this->string(32)->null(),
             'published' => $this->boolean()->notNull(),
-            'publication_date' => 'timestamp NULL'
+            'publication_date' => 'timestamp NULL',
+            'sort' => $this->integer(11)->null(),
         ], $tableOptions);
 
         $this->addPrimaryKey('contentmanager_content_pk', 'contentmanager_content', 'id');
