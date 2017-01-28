@@ -27,7 +27,7 @@ class partialWidget extends Widget
 
     public function run()
     {
-        if (!empty($this->itemView)) {
+        if (empty($this->itemView)) {
         return null;
         }
 
