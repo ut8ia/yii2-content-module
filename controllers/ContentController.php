@@ -96,7 +96,7 @@ class ContentController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-
+        $model->updateTagLinks = true;
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->actionIndex();
         } else {

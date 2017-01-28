@@ -43,6 +43,8 @@ class Content extends ActiveRecord
     public $NavTags;
     public $SeoTags;
 
+    public $updateTagLinks;
+
     public static function tableName()
     {
         return 'contentmanager_content';
@@ -212,15 +214,18 @@ class Content extends ActiveRecord
     {
         parent::afterSave($insert, $changedAttributes);
 
-        if (is_array($this->NavTags) and is_array($this->SystemTags)) {
-            $tags = array_merge($this->NavTags, $this->SystemTags);
-        } elseif (!is_array($this->NavTags)) {
-            $tags = $this->SystemTags;
-        } else {
-            $tags = $this->NavTags;
+        if ($this->updateTagLinks) {
+
+            if (is_array($this->NavTags) and is_array($this->SystemTags)) {
+                $tags = array_merge($this->NavTags, $this->SystemTags);
+            } elseif (!is_array($this->NavTags)) {
+                $tags = $this->SystemTags;
+            } else {
+                $tags = $this->NavTags;
+            }
+            $tagsLink = new TagsLink();
+            $tagsLink->linkTag($this->id, $tags, 1);
         }
-        $tagsLink = new TagsLink();
-        $tagsLink->linkTag($this->id, $tags, 1);
     }
 
 
