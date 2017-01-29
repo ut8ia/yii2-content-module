@@ -14,7 +14,7 @@ use ut8ia\multylang\models\Lang;
 
     <?php $form = ActiveForm::begin([
         'action' => ['index'],
-        'method' => 'get',
+        'method' => 'post',
     ]); ?>
 
     <?php

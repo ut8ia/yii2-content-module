@@ -50,7 +50,19 @@ class ContentController extends Controller
     public function actionIndex()
     {
         $searchModel = new ContentSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $post = Yii::$app->request->post();
+
+        if ($post) {
+            if (isset(Yii::$app->request->post()['ContentSearch'])) {
+                $filterParams = Yii::$app->request->post()['ContentSearch'];
+                Yii::$app->session->set('content_filter' . $this->module->id, $filterParams);
+                Yii::$app->session->set('content_filter_set' . $this->module->id, true);
+            }
+        }
+        $dataProvider = $searchModel->search([
+            'ContentSearch' => Yii::$app->session->get('content_filter' . $this->module->id)
+        ]);
+
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
