@@ -9,6 +9,8 @@ use ut8ia\multylang\models\Lang;
 use ut8ia\contentmodule\models\ContentRubrics;
 use ut8ia\contentmodule\models\ContentSections;
 use ut8ia\contentmodule\models\Tags;
+use conquer\codemirror\CodemirrorWidget;
+use conquer\codemirror\CodemirrorAsset;
 
 $model->SystemTags = $model->getLinkedTagsByType($model->id, 1, 0, null);
 $model->NavTags = $model->getLinkedTagsByType($model->id, 2, 0, null);
@@ -37,33 +39,53 @@ $tags = new Tags();
             'options' => ['class' => 'inline']])
             ->textInput(['maxlength' => true])
         ?>
-
         <?=
         $form->field($model, 'rubric_id', [
             'template' => '<div class="col-lg-5">{input}</div>',
             'options' => ['class' => 'inline']])
             ->dropDownList(ContentRubrics::selector($model->section_id));
         ?>
-
     </div>
 
     <?php
 
-    echo $form->field($model, 'text')->widget(TinyMce::class, [
-        'clientOptions' => [
-            'language' => 'ru',
-            'menubar' => false,
-            'height' => 500,
-            'image_dimensions' => false,
-            'apply_source_formatting' => false,
-            'verify_html' => false,
-            'plugins' => [
-                'advlist autolink lists link image charmap print preview anchor searchreplace visualblocks code contextmenu table paste insertdatetime',
-            ],
-            'toolbar' => 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | code preview ',
-        ],
-    ]);
+    if ($model->content_type == 'javascript') {
+        echo $form->field($model, 'text')->widget(
+            CodemirrorWidget::class,
+            [
+                'preset' => 'javascript',
+                'assets' => [
+                    CodemirrorAsset::MODE_CLIKE,
+                    CodemirrorAsset::KEYMAP_EMACS,
+                    CodemirrorAsset::ADDON_EDIT_MATCHBRACKETS,
+                    CodemirrorAsset::ADDON_COMMENT,
+                    CodemirrorAsset::ADDON_DIALOG,
+                    CodemirrorAsset::ADDON_SEARCHCURSOR,
+                    CodemirrorAsset::ADDON_SEARCH,
+                ],
+                'options' => ['rows' => 20],
+                'settings' => [
+                    'mode' => 'javascript'
+                ]
+            ]
+        );
+    } else {
 
+        echo $form->field($model, 'text')->widget(TinyMce::class, [
+            'clientOptions' => [
+                'language' => 'ru',
+                'menubar' => false,
+                'height' => 500,
+                'image_dimensions' => false,
+                'apply_source_formatting' => false,
+                'verify_html' => false,
+                'plugins' => [
+                    'advlist autolink lists link image charmap print preview anchor searchreplace visualblocks code contextmenu table paste insertdatetime',
+                ],
+                'toolbar' => 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | code preview ',
+            ],
+        ]);
+    }
     ?>
 
     <iframe id="form_target" name="form_target" style="display:none">
@@ -75,9 +97,16 @@ $tags = new Tags();
 
     <?php
 
+    if (Yii::$app->controller->module->contentType) {
+        echo $form->field($model, 'content_type')->dropDownList($model->contentTypes);
+    }
+    ?>
+
+    <?php
+
     if (Yii::$app->controller->module->description) {
 
-        echo $form->field($model,'description')->textarea();
+        echo $form->field($model, 'description')->textarea();
     }
 
     ?>

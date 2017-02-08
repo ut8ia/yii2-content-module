@@ -24,6 +24,7 @@ class ContentModule extends Module
     public $multilanguage;
     public $description;
     public $positioning;
+    public $contentType;
     public $stick;
     public $navigationTags;
     public $displayFormat;
