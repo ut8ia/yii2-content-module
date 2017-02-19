@@ -19,7 +19,7 @@ class ContentSearch extends Content
     {
         return [
             [['id'], 'integer'],
-            [['name', 'text', 'date','lang_id','rubric_id','section_id','section'], 'safe'],
+            [['name', 'text', 'date', 'lang_id', 'rubric_id', 'section_id', 'section'], 'safe'],
         ];
     }
 
@@ -42,16 +42,17 @@ class ContentSearch extends Content
     public function search($params)
     {
         $query = Content::find()
-//            ->orderBy(['id'=>SORT_DESC])
-            ->with('section','rubric','author');
+            ->with('section', 'rubric', 'author');
 
-        if(isset(Yii::$app->controller->module->sectionId)){
+        if (isset(Yii::$app->controller->module->sectionId)) {
             $params['ContentSearch']['section_id'] = Yii::$app->controller->module->sectionId;
         }
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
-            'sort' =>['attributes'=>['id','publication_date','name']]
+            'sort' => [
+                'defaultOrder' => ['id' => SORT_DESC],
+                'attributes' => ['id', 'publication_date', 'name']]
         ]);
 
         $this->load($params);
