@@ -3,7 +3,7 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\helpers\ArrayHelper;
-use ut8ia\multylang\models\Lang;
+
 
 /* @var $this yii\web\View */
 /* @var $searchModel ut8ia\contentmodule\models\ContentSearch */
@@ -13,12 +13,8 @@ $this->title = Yii::t('app', 'Content');
 ?>
 <div class="content-index">
     <?php echo $this->render('_search', ['model' => $searchModel]); ?>
-    <p>
-        <?= Html::a(Yii::t('app', 'Create Content'), ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
-
+    <p><?= Html::a(Yii::t('app', 'Create Content'), ['create'], ['class' => 'btn btn-success']) ?></p>
     <?php
-
     $columns[] = [
         'class' => 'yii\grid\ActionColumn',
         'contentOptions' => ['class' => 'small text-right', 'nowrap' => 'nowrap']
@@ -49,7 +45,7 @@ $this->title = Yii::t('app', 'Content');
 
     $columns[] = [
         'contentOptions' => ['class' => 'col-sm-4 small text-left'],
-        'attribute' => 'Name',
+        'attribute' => 'name',
         'format' => 'html',
         'value' => function($model) {
             return $model->name;
@@ -100,13 +96,12 @@ $this->title = Yii::t('app', 'Content');
             $style = ($model->published) ? 'bg-success' : '';
             return ['class' => 'col-sm-2 small text-center ' . $style];
         },
-        'attribute' => 'Publication date',
+        'attribute' => 'publication_date',
         'format' => 'html',
         'value' => function($model) {
             return $model->publication_date;
         },
     ];
-
 
     echo GridView::widget(['dataProvider' => $dataProvider,
         //    'filterModel' => $searchModel,

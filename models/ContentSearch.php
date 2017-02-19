@@ -42,7 +42,7 @@ class ContentSearch extends Content
     public function search($params)
     {
         $query = Content::find()
-            ->orderBy(['id'=>SORT_DESC])
+//            ->orderBy(['id'=>SORT_DESC])
             ->with('section','rubric','author');
 
         if(isset(Yii::$app->controller->module->sectionId)){
@@ -51,6 +51,7 @@ class ContentSearch extends Content
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'sort' =>['attributes'=>['id','publication_date','name']]
         ]);
 
         $this->load($params);
