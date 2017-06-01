@@ -51,7 +51,7 @@ class ContentHelper
             }
         }
         $main['alt'] =(isset($main['alt']))?$main['alt']:'no alt';
-        
+
         $out['images'] = $images;
         $out['count'] = $c;
         $out['main'] = $main;
