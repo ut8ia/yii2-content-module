@@ -50,7 +50,7 @@ class ContentHelper
                 $main['alt'] = 'no image here';
             }
         }
-        $main['alt'] =(isset($main['alt']))?$main['alt']:'no alt';
+        $main['alt'] = (isset($main['alt'])) ? $main['alt'] : 'no alt';
 
         $out['images'] = $images;
         $out['count'] = $c;
@@ -65,19 +65,18 @@ class ContentHelper
 
     public static function changeSize($src, $size)
     {
-//        $src = 'qwerwet-200x230.jpg';
         // skip if external link
-        if(strpos($src,'http')){
+        if (strpos($src, 'http') !== false) {
             return $src;
         }
 
         $modules = Yii::$app->getModules();
-        $newX= $modules['filemanager']['thumbs'][$size]['size'][0];
-        $newY= $modules['filemanager']['thumbs'][$size]['size'][1];
-        $newSuffix = '-'.$newX.'x'.$newY;
+        $newX = $modules['filemanager']['thumbs'][$size]['size'][0];
+        $newY = $modules['filemanager']['thumbs'][$size]['size'][1];
+        $newSuffix = '-' . $newX . 'x' . $newY;
         $path_parts = pathinfo($src);
-        $newName = preg_replace('/-[0-9]{1,4}+x+[0-9]{1,4}/','',$path_parts['filename']);
-        return $path_parts['dirname'].'/'.$newName.$newSuffix.'.'.$path_parts['extension'];
+        $newName = preg_replace('/-[0-9]{1,4}+x+[0-9]{1,4}/', '', $path_parts['filename']);
+        return $path_parts['dirname'] . '/' . $newName . $newSuffix . '.' . $path_parts['extension'];
     }
 
 
