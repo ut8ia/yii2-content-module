@@ -3,6 +3,7 @@
 namespace ut8ia\contentmodule;
 
 use \yii\base\Module;
+use ut8ia\contentmodule\models\Content;
 
 /**
  * Class ContentModule
@@ -35,6 +36,18 @@ class ContentModule extends Module
     public function init()
     {
         parent::init();
+    }
+
+    //** make import of images on all content in called section */
+    public function importImagesAllContent()
+    {
+        $all = Content::find()
+            ->where(['section_id' => $this->sectionId])
+            ->all();
+        foreach ($all as $one) {
+            $one->save();
+        }
+
     }
 
 

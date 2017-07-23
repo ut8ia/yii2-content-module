@@ -2,6 +2,7 @@
 
 namespace ut8ia\contentmodule\models;
 
+use ut8ia\filemanager\behaviors\ImportImagesBehavior;
 use Yii;
 use yii\db\ActiveRecord;
 use ut8ia\filemanager\behaviors\MediafileBehavior;
@@ -101,11 +102,18 @@ class Content extends ActiveRecord
                 'translit' => true
             ],
             'mediafile' => [
-                'class' => MediafileBehavior::className(),
+                'class' => MediafileBehavior::class,
                 'name' => 'content',
                 'attributes' => [
                     'text',
                 ]
+            ],
+            'importfiles' => [
+                'class' => ImportImagesBehavior::class,
+                'altField' => 'name',
+                'contentField' => 'text',
+                'descriptionField' => 'description',
+                'moduleName' => 'filemanager'
             ]
         ];
     }
