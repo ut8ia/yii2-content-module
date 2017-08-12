@@ -3,11 +3,10 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use dosamigos\datetimepicker\DateTimePicker;
-use ut8ia\filemanager\widgets\TinyMCE;
+use ut8ia\filemanager\widgets\TinyMce;
 use kartik\select2\Select2;
 use ut8ia\multylang\models\Lang;
 use ut8ia\contentmodule\models\ContentRubrics;
-use ut8ia\contentmodule\models\ContentSections;
 use ut8ia\contentmodule\models\Tags;
 use conquer\codemirror\CodemirrorWidget;
 use conquer\codemirror\CodemirrorAsset;
@@ -96,23 +95,31 @@ $tags = new Tags();
     </iframe>
 
     <?php
+    if (Yii::$app->controller->module->source) {
+        echo $form->field($model, 'source')->textInput();
+    }
+    ?>
 
+    <?php
+    if (Yii::$app->controller->module->priority) {
+        echo $form->field($model, 'priority')->dropDownList($model->prioritySelector(), ['prompt' => '']);
+    }
+    ?>
+
+
+    <?php
     if (Yii::$app->controller->module->contentType) {
         echo $form->field($model, 'content_type')->dropDownList($model->contentTypes);
     }
     ?>
 
     <?php
-
     if (Yii::$app->controller->module->description) {
-
         echo $form->field($model, 'description')->textarea();
     }
-
     ?>
 
     <?php
-
     if (Yii::$app->controller->module->navigationTags) {
 
         echo $form->field($model, 'NavTags')->widget(Select2::class, [

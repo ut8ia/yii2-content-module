@@ -7,10 +7,7 @@ use Yii;
 use yii\db\ActiveRecord;
 use ut8ia\filemanager\behaviors\MediafileBehavior;
 use ut8ia\multylang\models\Lang;
-use ut8ia\contentmodule\models\ContentRubrics;
-use ut8ia\contentmodule\models\ContentSections;
-use ut8ia\contentmodule\models\Tags;
-use ut8ia\contentmodule\models\TagsLink;
+
 
 use ut8ia\contentmodule\helpers\ContentHelper;
 
@@ -22,6 +19,8 @@ use ut8ia\contentmodule\helpers\ContentHelper;
  * @property string $slug
  * @property string $text
  * @property string $description
+ * @property string $source
+ * @property string $priority
  * @property string $lang_id
  * @property string $date
  * @property string $rubric_id
@@ -59,8 +58,8 @@ class Content extends ActiveRecord
     {
         return [
             [['name', 'text', 'rubric_id', 'section_id'], 'required'],
-            [['text', 'slug', 'description'], 'string'],
-            [['date', 'publication_date', 'author_id', 'SystemTags', 'NavTags', 'stick', 'content_type'], 'safe'],
+            [['text', 'slug', 'description', 'source'], 'string'],
+            [['date', 'publication_date', 'author_id', 'SystemTags', 'NavTags', 'stick', 'content_type', 'priority'], 'safe'],
             [['section_id', 'lang_id', 'rubric_id', 'sort'], 'integer'],
             [['name'], 'string', 'max' => 255],
             [['display_format'], 'string', 'max' => 32],
@@ -79,6 +78,8 @@ class Content extends ActiveRecord
             'slug' => 'slug',
             'text' => 'Text',
             'description' => 'Description',
+            'source' => 'Source',
+            'priority' => 'Priority',
             'date' => 'Date',
             'author_id' => 'Author',
             'rubric_id' => 'Theme',
@@ -236,7 +237,9 @@ class Content extends ActiveRecord
         }
     }
 
-
+    /**
+     * @return static|null
+     */
     public static function getDefault()
     {
         return Content::findOne(0);
@@ -503,6 +506,24 @@ class Content extends ActiveRecord
             ->select('name')
             ->indexBy('id')
             ->column();
+    }
+
+    /**
+     * @return array
+     */
+    public function prioritySelector(){
+        return [
+            '0.1'=>'0.1',
+            '0.2'=>'0.2',
+            '0.3'=>'0.3',
+            '0.4'=>'0.4',
+            '0.5'=>'0.5',
+            '0.6'=>'0.6',
+            '0.7'=>'0.7',
+            '0.8'=>'0.8',
+            '0.9'=>'0.9',
+            '1.0'=>'1.0',
+        ];
     }
 
 

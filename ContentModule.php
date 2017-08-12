@@ -11,6 +11,8 @@ use ut8ia\contentmodule\models\Content;
  * @property integer $sectionId
  * @property boolean $multilanguage
  * @property boolean $description
+ * @property boolean $source
+ * @property boolean $priority
  * @property boolean $positioning
  * @property boolean $stick
  * @property boolean $navigationTags
@@ -24,6 +26,8 @@ class ContentModule extends Module
     public $sectionId;
     public $multilanguage;
     public $description;
+    public $source;
+    public $priority;
     public $positioning;
     public $contentType;
     public $stick;

@@ -8,7 +8,6 @@ class m161025_094441_init_functionality extends Migration
     {
         $tableOptions = null;
         if ($this->db->driverName === 'mysql') {
-            // http://stackoverflow.com/questions/766809/whats-the-difference-between-utf8-general-ci-and-utf8-unicode-ci
             $tableOptions = 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB';
         }
 
@@ -18,6 +17,8 @@ class m161025_094441_init_functionality extends Migration
             'slug' => $this->string(255)->defaultValue(null),
             'text' => $this->text()->notNull(),
             'description' => $this->string(255)->defaultValue(null),
+            'source' => $this->string(255)->null(),
+            'priority' => $this->float()->null(),
             'lang_id' => $this->integer(4)->defaultValue(null),
             'date' => 'timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP',
             'rubric_id' => $this->integer(11)->notNull(),

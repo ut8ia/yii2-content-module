@@ -3,7 +3,7 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use dosamigos\datetimepicker\DateTimePicker;
-use ut8ia\filemanager\widgets\TinyMCE;
+use ut8ia\filemanager\widgets\TinyMce;
 use kartik\select2\Select2;
 use ut8ia\multylang\models\Lang;
 use ut8ia\contentmodule\models\ContentRubrics;
@@ -117,12 +117,13 @@ $tags = new Tags();
         </form>
     </iframe>
 
-    <?php
-    echo $form->field($model,'description')->textarea();
-    ?>
+    <?= $form->field($model, 'description')->textarea(); ?>
 
-    <?php
-    echo $form->field($model, 'NavTags')->widget(Select2::class, [
+    <?= $form->field($model, 'source')->textInput(); ?>
+
+    <?= $form->field($model, 'priority')->dropDownList($model->prioritySelector(), ['prompt' => '']); ?>
+
+    <?= $form->field($model, 'NavTags')->widget(Select2::class, [
         'data' => $tags->getByType(2, 1),
         'language' => 'en',
         'options' => [
@@ -135,8 +136,7 @@ $tags = new Tags();
     ]);
     ?>
 
-    <?php
-    echo $form->field($model, 'SystemTags')->widget(Select2::class, [
+    <?= $form->field($model, 'SystemTags')->widget(Select2::class, [
         'data' => $tags->getByType(1, 1),
         'language' => 'en',
         'options' => ['multiple' => true, 'placeholder' => 'tags for locate item on page template'],
@@ -147,7 +147,7 @@ $tags = new Tags();
     ?>
 
     <div class="form-group row">
-        <div class="col-lg-2 small"><?php echo Yii::t('main', 'Date'); ?></div>
+        <div class="col-lg-2 small"><?= Yii::t('main', 'Date'); ?></div>
         <?= $form->field($model, 'date', [
             'template' => '<div class="col-lg-5">{input}</div>',
             'options' => ['class' => 'inline']])->widget(DateTimePicker::class);
