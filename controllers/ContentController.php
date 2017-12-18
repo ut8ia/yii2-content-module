@@ -20,13 +20,13 @@ class ContentController extends Controller
     {
         return [
             'verbs' => [
-                'class' => VerbFilter::className(),
+                'class' => VerbFilter::class,
                 'actions' => [
                     'delete' => ['post'],
                 ],
             ],
             'access' => [
-                'class' => AccessControl::className(),
+                'class' => AccessControl::class,
                 'rules' => [
                     [
                         'allow' => true,
@@ -35,7 +35,7 @@ class ContentController extends Controller
                     ],
                     [
                         'actions' => ['index', 'view', 'update', 'create', 'delete'],
-                        'allow' => true,
+                        'allow' => false,
                         'roles' => ['?'],
                     ],
                 ]
@@ -92,11 +92,12 @@ class ContentController extends Controller
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->actionIndex();
-        } else {
-            return $this->render('create', [
-                'model' => $model,
-            ]);
         }
+
+        return $this->render('create', [
+            'model' => $model,
+        ]);
+
     }
 
     /**
@@ -111,11 +112,12 @@ class ContentController extends Controller
         $model->updateTagLinks = true;
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->actionIndex();
-        } else {
-            return $this->render('update', [
-                'model' => $model,
-            ]);
         }
+
+        return $this->render('update', [
+            'model' => $model,
+        ]);
+
     }
 
     /**

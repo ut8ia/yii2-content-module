@@ -13,19 +13,23 @@ use yii\filters\AccessControl;
 /**
  * ContentRubricsController implements the CRUD actions for ContentRubrics model.
  */
-class ContentrubricsController extends Controller {
+class ContentrubricsController extends Controller
+{
 
+    /**
+     * @return array
+     */
     public function behaviors()
     {
         return [
             'verbs' => [
-                'class' => VerbFilter::className(),
+                'class' => VerbFilter::class,
                 'actions' => [
                     'delete' => ['post'],
                 ],
             ],
             'access' => [
-                'class' => AccessControl::className(),
+                'class' => AccessControl::class,
                 'rules' => [
                     [
                         'allow' => true,
@@ -34,7 +38,7 @@ class ContentrubricsController extends Controller {
                     ],
                     [
                         'actions' => ['index', 'view', 'update', 'create', 'delete'],
-                        'allow' => true,
+                        'allow' => false,
                         'roles' => ['?'],
                     ],
                 ]
@@ -52,8 +56,8 @@ class ContentrubricsController extends Controller {
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
-                    'searchModel' => $searchModel,
-                    'dataProvider' => $dataProvider,
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
         ]);
     }
 
@@ -65,7 +69,7 @@ class ContentrubricsController extends Controller {
     public function actionView($id)
     {
         return $this->render('view', [
-                    'model' => $this->findModel($id),
+            'model' => $this->findModel($id),
         ]);
     }
 
@@ -80,11 +84,12 @@ class ContentrubricsController extends Controller {
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->actionIndex();
-        } else {
-            return $this->render('create', [
-                        'model' => $model,
-            ]);
         }
+
+        return $this->render('create', [
+            'model' => $model,
+        ]);
+
     }
 
     /**
@@ -99,11 +104,12 @@ class ContentrubricsController extends Controller {
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->actionIndex();
-        } else {
-            return $this->render('update', [
-                        'model' => $model,
-            ]);
         }
+
+        return $this->render('update', [
+            'model' => $model,
+        ]);
+
     }
 
     /**

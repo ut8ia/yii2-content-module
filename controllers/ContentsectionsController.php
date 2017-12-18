@@ -15,17 +15,32 @@ use yii\filters\VerbFilter;
 class ContentsectionsController extends Controller
 {
     /**
-     * @inheritdoc
+     * @return array
      */
     public function behaviors()
     {
         return [
             'verbs' => [
-                'class' => VerbFilter::className(),
+                'class' => VerbFilter::class,
                 'actions' => [
-                    'delete' => ['POST'],
+                    'delete' => ['post'],
                 ],
             ],
+            'access' => [
+                'class' => AccessControl::class,
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'actions' => ['index', 'view', 'update', 'create', 'delete'],
+                        'roles' => ['@']
+                    ],
+                    [
+                        'actions' => ['index', 'view', 'update', 'create', 'delete'],
+                        'allow' => false,
+                        'roles' => ['?'],
+                    ],
+                ]
+            ]
         ];
     }
 
@@ -67,11 +82,12 @@ class ContentsectionsController extends Controller
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->actionIndex();
-        } else {
-            return $this->render('create', [
-                'model' => $model,
-            ]);
         }
+
+        return $this->render('create', [
+            'model' => $model,
+        ]);
+
     }
 
     /**
@@ -86,11 +102,12 @@ class ContentsectionsController extends Controller
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->actionIndex();
-        } else {
-            return $this->render('update', [
-                'model' => $model,
-            ]);
         }
+
+        return $this->render('update', [
+            'model' => $model,
+        ]);
+
     }
 
     /**
