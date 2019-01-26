@@ -23,7 +23,6 @@
     "ut8ia/yii2-filemanager":"*",
     "2amigos/yii2-transliterator-helper": "*",
     "kartik-v/yii2-widget-select2": "@dev",
-    "conquer/codemirror": "*",
     "2amigos/yii2-date-time-picker-widget": "~1.0"
   }
 }
