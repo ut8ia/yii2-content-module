@@ -2,7 +2,7 @@
 
 namespace ut8ia\contentmodule\components;
 
-use yii\base\Object;
+use yii\base\BaseObject;
 use ut8ia\contentmodule\models\Content;
 
 /**
@@ -11,7 +11,7 @@ use ut8ia\contentmodule\models\Content;
  * @property integer $timstamp
  * @property string $time
  */
-class ContentPublisher extends Object
+class ContentPublisher extends BaseObject
 {
 
     public $timestamp;
